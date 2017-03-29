@@ -1,0 +1,3 @@
+Bundle-Name: data-analytics-map-portlet
+Bundle-SymbolicName: it.cmcc.indigo.map
+Bundle-Version: 1.0.1

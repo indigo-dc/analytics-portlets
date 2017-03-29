@@ -1,0 +1,3 @@
+Bundle-Name: data-analytics-ncdump-portlet
+Bundle-SymbolicName: it.cmcc.indigo.ncdump
+Bundle-Version: 1.0.1
