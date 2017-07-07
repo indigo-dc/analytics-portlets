@@ -8,7 +8,7 @@
 
   * Tomcat8 needed by Liferay
   
- **Configuration:**
+**Configuration:**
  
   The modules add new panels to the Liferay portal providing the possibility to select a series of input parameters and submit a models intercomparison experiment over the INDIGO-Data Cloud infrastructure. Other two modules will get the results of the submission and visualize the produced map and the related nc-dump file.
   
