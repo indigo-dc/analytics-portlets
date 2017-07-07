@@ -14,10 +14,10 @@ Once the portlet has been deployed and configured within the portal, it will sho
 
 The portlet will visualize the png map produced by the execution of the experiment.
 
-
+![Output map of the experiment](img/map.png)
 
 **data-analytics-ncdump-portlet**
 
 The portlet will visualize the nc-dump file.
 
-
+![Output ncdump of the experiment](img/ncdump.png)
