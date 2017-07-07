@@ -1,6 +1,7 @@
 # Summary
 
-* [About Analytics portlets](README.md)
-* [Developer guide](doc/developer.md)
-* [Deployment and Administration guide](doc/admin.md)
-* [User guide](doc/user.md)
+* [About Indigo Component](README.md)
+* [Administration Guide](doc/admin.md)
+* [Developer Guide](doc/developer.md)
+* [User Guide](doc/user.md)
+* [Service Reference Card](doc/service_reference.md)
