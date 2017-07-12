@@ -51,21 +51,15 @@ public class MapPortletTest {
     @Mock
     private RenderResponse renderResponse;
 
-	@Before
-	public void setUp() {		
-	    Mockito.when(renderRequest.getParameter("pngname")).thenReturn("avg.png");
-	}
+    @Before
+    public void setUp() {		
+    	Mockito.when(renderRequest.getParameter("pngname")).thenReturn("avg.png");
+    }
 
    @Test
-   public final void testDoView() throws IOException, PortletException {
-	   
-	   String value = renderRequest.getParameter("pngname");
-       
-       String regex = ".*\\.(png|jpg|gif|bmp)";
-       assertTrue((value.matches(regex)));
-	   
-    //  String value = "avg.png";
-    //  String regex = ".*\\.(png|jpg|gif|bmp)";
-    //  assertTrue(value.matches(regex));
+   public final void testDoView() throws IOException, PortletException {   
+   	String value = renderRequest.getParameter("pngname");       
+        String regex = ".*\\.(png|jpg|gif|bmp)";
+        assertTrue((value.matches(regex)));
    }
 }
