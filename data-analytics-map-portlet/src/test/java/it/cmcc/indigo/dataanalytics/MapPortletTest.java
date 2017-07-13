@@ -23,14 +23,42 @@ package it.cmcc.indigo.dataanalytics;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
+	
+    /**
+     * Fake request for process action.
+     */
+    @Mock
+    private RenderRequest renderRequest;
+    
+    /**
+     * Fake response for process action.
+     */
+    @Mock
+    private RenderResponse renderResponse;
+
+	@Before
+	public void setUp() {		
+	    Mockito.when(renderRequest.getParameter("pngname")).thenReturn("avg.png");
+	}
 
    @Test
-   public final void testDoViewRenderRequestRenderResponse() {
-      String value = "avg.png";
-      String regex = ".*\\.(png|jpg|gif|bmp)";
-      assertTrue(value.matches(regex));
+   public final void testDoView(){
+	   
+	   String value = renderRequest.getParameter("pngname");
+       
+       String regex = ".*\\.(png|jpg|gif|bmp)";
+       assertTrue((value.matches(regex)));
    }
 }
