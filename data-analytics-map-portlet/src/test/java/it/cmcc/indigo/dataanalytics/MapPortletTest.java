@@ -35,30 +35,24 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
-	
-    /**
-     * Fake request for process action.
-     */
-    @Mock
-    private RenderRequest renderRequest;
-    
-    /**
-     * Fake response for process action.
-     */
-    @Mock
-    private RenderResponse renderResponse;
 
-	@Before
-	public void setUp() {		
-	    Mockito.when(renderRequest.getParameter("pngname")).thenReturn("avg.png");
-	}
+   @Mock
+   private RenderRequest renderRequest;
+
+   @Mock
+   private RenderResponse renderResponse;
+
+   @Before
+   public final void setUp() {
+      Mockito.when(renderRequest.getParameter("pngname")).
+      thenReturn("avg.png");
+   }
 
    @Test
-   public final void testDoView(){
-	   
-	   String value = renderRequest.getParameter("pngname");
-       
-       String regex = ".*\\.(png|jpg|gif|bmp)";
-       assertTrue((value.matches(regex)));
+   public final void testDoView() {
+      String value = renderRequest.getParameter("pngname");
+
+      String regex = ".*\\.(png|jpg|gif|bmp)";
+      assertTrue((value.matches(regex)));
    }
 }
