@@ -22,15 +22,37 @@ package it.cmcc.indigo.dataanalytics;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
 public class NCDumpPortletTest {
 
+   @Mock
+   private RenderRequest renderRequest;
+
+   @Mock
+   private RenderResponse renderResponse;
+
+   @Before
+   public final void setUp() {
+      Mockito.when(renderRequest.getParameter("url")).
+      thenReturn("http://remotetest.unidata.ucar.edu/dts/test.01.das");
+   }
+
    @Test
-   public final void testDoViewRenderRequestRenderResponse() {
-      String url = "http://remotetest.unidata.ucar.edu/dts/test.01.das";
-      String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|";
-      regex += "!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
-      assertTrue(url.matches(regex));
+   public final void testDoView() {
+      String value = renderRequest.getParameter("url");
+
+      String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?"
+      + "=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+      assertTrue((value.matches(regex)));
    }
 }
