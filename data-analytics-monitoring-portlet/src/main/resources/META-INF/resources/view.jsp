@@ -24,23 +24,30 @@
 
 <%@ include file="/init.jsp" %>
 
-<portlet:actionURL name="submitExperiment" var="submitExperiment" />
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
 
-<div class="panel panel-default">
-    <div>
-		<form action="<%=submitExperiment%>" method="Post">
-			<input type="hidden" name="<portlet:namespace/>token" id="<portlet:namespace/>token"/>
-			<input type="text" name="<portlet:namespace/>test" id="<portlet:namespace/>test" value="test_mio"/>
-	    	<input type="submit" value="Submit"/>
-		</form>
-	</div>       
-</div>
-<script type="text/javascript">
-	Liferay.Service(
-         '/iam.token/get-token',
-         function(obj) {
-        	 document.getElementById('<portlet:namespace/>token').value = obj.token;
-        	 document.getElementById('<portlet:namespace/>test').value = "test_token";
-         }
-    );
+<portlet:resourceURL id="serveResource" var="serveResource"/>
+
+Table here.
+
+<script>
+Liferay.Service(
+      '/iam.token/get-token',
+      function(obj) {
+     	 //$('#addButton').click(function(e) {
+     	    var token = obj.token;
+     	    $.ajax({
+     	        type: "POST",
+     	        data: {"<portlet:namespace />token" : token},
+     	        url: "<%=serveResource%>",
+     	        success: function(data){
+     	            alert("Hello");
+     	        }
+     	    });
+     	//});
+      }
+ );
 </script>
+<div class="panel-footer"></div>

@@ -1,4 +1,3 @@
-<%--
 /**
  * *********************************************************************
  * Copyright (c) 2017: Euro Mediterranean Center on Climate Change (CMCC) Foundation -
@@ -20,27 +19,21 @@
  * 
  **********************************************************************
  */
---%>
+package it.cmcc.indigo.dataanalytics;
 
-<%@ include file="/init.jsp" %>
+import static org.junit.Assert.assertTrue;
 
-<portlet:actionURL name="submitExperiment" var="submitExperiment" />
+import org.junit.Test;
 
-<div class="panel panel-default">
-    <div>
-		<form action="<%=submitExperiment%>" method="Post">
-			<input type="hidden" name="<portlet:namespace/>token" id="<portlet:namespace/>token"/>
-			<input type="text" name="<portlet:namespace/>test" id="<portlet:namespace/>test" value="test_mio"/>
-	    	<input type="submit" value="Submit"/>
-		</form>
-	</div>       
-</div>
-<script type="text/javascript">
-	Liferay.Service(
-         '/iam.token/get-token',
-         function(obj) {
-        	 document.getElementById('<portlet:namespace/>token').value = obj.token;
-        	 document.getElementById('<portlet:namespace/>test').value = "test_token";
-         }
-    );
-</script>
+public class SingleModelPortletTest {
+
+	@Test
+	public final void testDoViewRenderRequestRenderResponse() {
+		String url = "http://opendap.knmi.nl/knmi/thredds/dodsC/CLIPC/cmcc/SWE/SWE_ophidia-0-10-1_CMCC_GlobSnow-SWE-L3B_monClim_19791001-20080701_1979-2008.nc.dds";
+		
+		String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
+		
+		assertTrue(url.matches(regex));
+	}
+
+}

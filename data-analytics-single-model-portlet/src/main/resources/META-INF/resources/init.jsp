@@ -1,4 +1,4 @@
-<%--
+<%
 /**
  * *********************************************************************
  * Copyright (c) 2017: Euro Mediterranean Center on Climate Change (CMCC) Foundation -
@@ -20,27 +20,16 @@
  * 
  **********************************************************************
  */
---%>
+%>
 
-<%@ include file="/init.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
 
-<portlet:actionURL name="submitExperiment" var="submitExperiment" />
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<div class="panel panel-default">
-    <div>
-		<form action="<%=submitExperiment%>" method="Post">
-			<input type="hidden" name="<portlet:namespace/>token" id="<portlet:namespace/>token"/>
-			<input type="text" name="<portlet:namespace/>test" id="<portlet:namespace/>test" value="test_mio"/>
-	    	<input type="submit" value="Submit"/>
-		</form>
-	</div>       
-</div>
-<script type="text/javascript">
-	Liferay.Service(
-         '/iam.token/get-token',
-         function(obj) {
-        	 document.getElementById('<portlet:namespace/>token').value = obj.token;
-        	 document.getElementById('<portlet:namespace/>test').value = "test_token";
-         }
-    );
-</script>
+<liferay-theme:defineObjects />
+
+<portlet:defineObjects />
