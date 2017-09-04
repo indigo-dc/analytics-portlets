@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -54,7 +55,6 @@ public class MultipartUtility {
         outputStream = httpConn.getOutputStream();
         writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
                 true);
-        System.out.println("multipart 1");
     }
  
     /**
@@ -65,6 +65,7 @@ public class MultipartUtility {
      */
     public void addFilePart(String fieldName, File uploadFile)
             throws IOException {
+    	System.out.println("add file part start");
         String fileName = uploadFile.getName();
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append(
@@ -89,7 +90,8 @@ public class MultipartUtility {
         inputStream.close();
          
 //        writer.append(LINE_FEED);
-        writer.flush();    
+        writer.flush(); 
+        System.out.println("add file part end");
     }
  
     /**
@@ -108,7 +110,7 @@ public class MultipartUtility {
      * status OK, otherwise an exception is thrown.
      * @throws IOException
      */
-    public List<String> finish() throws IOException {
+    /*public List<String> finish() throws IOException {
         List<String> response = new ArrayList<String>();
  
         writer.append(LINE_FEED).flush();
@@ -132,5 +134,75 @@ public class MultipartUtility {
         }
  
         return response;
+    }*/
+    
+    /*public List<String> finish() throws IOException {
+        List<String> response = new ArrayList<String>();
+ 
+        writer.append(LINE_FEED).flush();
+        writer.append("--" + boundary + "--").append(LINE_FEED);
+        System.out.println(writer.toString());
+        writer.close();
+ 
+        // checks server's status code first
+        int status = httpConn.getResponseCode();
+
+		// read message body
+		BufferedReader reader = new BufferedReader(new InputStreamReader(
+				httpConn.getInputStream()));
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			response.add(line);
+		}
+		reader.close();
+
+        if (status != HttpURLConnection.HTTP_OK) {
+			final StringBuilder builder = new StringBuilder();
+			builder.append("Server returned non-OK status: ");
+			builder.append(status).append('\n');
+			for (final String responseLine : response) {
+				builder.append(responseLine).append('\n');
+			}
+            throw new IOException(builder.toString());
+        }
+
+        httpConn.disconnect();
+        return response;
+    }*/
+    
+    public List<String> finish() throws IOException {
+		try {
+            writer.append(LINE_FEED).flush();
+            writer.append("--" + boundary + "--").append(LINE_FEED);
+            System.out.println(writer.toString());
+            writer.close();
+     
+            // checks server's status code first
+            int status = httpConn.getResponseCode();
+            if (status == HttpURLConnection.HTTP_OK) {
+                return readResponse(httpConn.getInputStream());
+            } else {
+                final StringBuilder builder = new StringBuilder();
+                builder.append("Server returned non-OK status: ").append(status).append('\n');
+                for (final String line : readResponse(httpConn.getErrorStream())) {
+                    builder.append(line).append('\n');
+                }
+                throw new IOException(builder.toString());
+            }
+		} finally {
+            httpConn.disconnect();
+		}
     }
+
+	private List<String> readResponse(final InputStream stream) throws IOException {
+        List<String> response = new ArrayList<String>();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			response.add(line);
+		}
+		reader.close();
+		return response;
+	}
+    
 }

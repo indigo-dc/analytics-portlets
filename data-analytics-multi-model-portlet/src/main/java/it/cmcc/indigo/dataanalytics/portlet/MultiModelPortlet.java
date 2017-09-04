@@ -29,12 +29,12 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import it.cmcc.indigo.utility.HttpDownloadUtility;
 import it.cmcc.indigo.utility.MultipartUtility;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -73,38 +73,64 @@ public class MultiModelPortlet extends MVCPortlet {
 	
 	private String token = null;
 	
-	private String model1 = null;
-	private String model2 = null;
+	private String[] models = null;
 	
 	private String scenario = null;
 	private String time_frequency = null;
 	private String percentile = null;
-	private String historical_time = null;
-	private String scenario_time = null;
+	private String historical_time_min = null;
+	private String historical_time_max = null;
+	private String scenario_time_min = null;
+	private String scenario_time_max = null;
 	
 	private String latmin = null;
 	private String latmax = null;
 	private String lonmin = null;
 	private String lonmax = null;
 	
-	public void submitExperiment(ActionRequest request, ActionResponse response) throws IOException, JSONException {
+	public void submitExperiment(ActionRequest request, ActionResponse response) throws JSONException, IOException {
 		
 		token = ParamUtil.getString(request, "token");
 		System.out.println("token: " + token);
 		
-		model1 = "CMCC-CM";
-		model2 = "CMCC-CMS";
+		models = ParamUtil.getParameterValues(request, "model");
+		for (int i = 0; i < models.length; i++) {
+			System.out.println("models " + i + "= " + models[i]);
+			
+		}
 		
-		scenario = "rcp85";
-		time_frequency = "day";
-		percentile = "0.9";
-		historical_time = "1976_2006";
-		scenario_time = "2071_2101";
+		scenario = ParamUtil.getString(request, "scenario");
+		System.out.println("scenario =  " + scenario);
 		
-		latmin = "-90";
-		latmax = "90";
-		lonmin = "0";
-		lonmax = "360";
+		time_frequency = ParamUtil.getString(request, "time_frequency");
+		System.out.println("time_frequency =  " + time_frequency);
+		
+		percentile = ParamUtil.getString(request, "percentile");
+		System.out.println("percentile =  " + percentile);
+		
+		historical_time_min = ParamUtil.getString(request, "historical_time_min");
+		System.out.println("historical_time_min =  " + historical_time_min);
+		
+		historical_time_max = ParamUtil.getString(request, "historical_time_max");
+		System.out.println("historical_time_max =  " + historical_time_max);
+		
+		scenario_time_min = ParamUtil.getString(request, "scenario_time_min");
+		System.out.println("scenario_time_min =  " + scenario_time_min);
+		
+		scenario_time_max = ParamUtil.getString(request, "scenario_time_max");
+		System.out.println("scenario_time_max =  " + scenario_time_max);
+		
+		latmin = ParamUtil.getString(request, "latmin");
+		System.out.println("latmin =  " + latmin);
+		
+		latmax = ParamUtil.getString(request, "latmax");
+		System.out.println("latmax =  " + latmax);
+		
+		lonmin = ParamUtil.getString(request, "lonmin");
+		System.out.println("lonmin =  " + lonmin);
+		
+		lonmax = ParamUtil.getString(request, "lonmax");
+		System.out.println("lonmax =  " + lonmax);
 		
 		int idapp = getAppID("kepler-batch");
 		int idtask = -1;
@@ -120,9 +146,9 @@ public class MultiModelPortlet extends MVCPortlet {
 //	        HttpDownloadUtility.downloadFile("https://raw.githubusercontent.com/indigo-dc/tosca-templates/master/kepler-batch.yaml", tmp_path.toString());
 //			System.out.println(tmp_path.toString() + "/tosca_template.yaml");
 //			File uploadFile1 = new File(tmp_path.toString() + "/tosca_template.yaml");
-//			File uploadFile2 = createParametersFile(idtask, tmp_path);
-			File uploadFile1 = new File("/home/futuregateway/kepler-batch/example/tosca_template.yaml");
-			File uploadFile2 = new File("/home/futuregateway/kepler-batch/example/parameters.json");
+			File uploadFile2 = new File("/home/futuregateway/kepler-batch/example/tosca_template.yaml");
+			File uploadFile1 = createParametersFile(idtask, tmp_path);
+//			File uploadFile2 = new File("/home/futuregateway/kepler-batch/example/parameters.json");
 			sendTaskInputFile(idtask, uploadFile1, uploadFile2);
 		}
 		else
@@ -213,50 +239,89 @@ public class MultiModelPortlet extends MVCPortlet {
 		return idtask;
 	}
 	
-	public File createParametersFile(int taskid, Path tmp_path) throws JSONException {
-		
-		File file = null;
-				
-		String jsonString = "{";
-		jsonString += "\"parameters\": {";
-		jsonString += "\"futuregateway_uri\": \"" + fgURL + "\",";
-		jsonString += "\"authorization_token\": \"" + token + "\",";
-		jsonString += "\"task_id\": \"" + taskid + "\",";
-		jsonString += "\"config_json\": \"[";
-        jsonString += "{\\\"host\\\":\\\"193.204.199.174\\\",\\\"port\\\":\\\"11732\\\",\\\"login\\\":\\\"indigo\\\",\\\"password\\\":\\\"1nD1g0_de\\\",\\\"argument\\\":\\\"8 " + model1 + " " + scenario + " " + time_frequency + " " + percentile + " " + historical_time + " " + scenario_time + " " + latmin + ":" + latmax + "|" + lonmin + ":" + lonmax + " r360x180\\\"},";
-        jsonString += "{\\\"host\\\":\\\"193.204.199.174\\\",\\\"port\\\":\\\"11732\\\",\\\"login\\\":\\\"indigo\\\",\\\"password\\\":\\\"1nD1g0_de\\\",\\\"argument\\\":\\\"8 " + model2 + " " + scenario + " " + time_frequency + " " + percentile + " " + historical_time + " " + scenario_time + " " + latmin + ":" + latmax + "|" + lonmin + ":" + lonmax + " r360x180\\\"}]\"";
-		jsonString += "}";
-		jsonString += "}";
-//		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(jsonString);
-		
-		try {  
+	public File createParametersFile(int taskid, Path tmp_path) {
 
-            // Writing to a file  
-            file = new File(tmp_path + "/parameters.json");  
-            file.createNewFile();  
+		File file = null;
+		
+		BufferedReader br = null;
+		FileReader fr = null;
+		try {
+			fr = new FileReader("/home/futuregateway/FutureGateway/fgAPIServer/apps/kepler-batch/models-mapping.json");
+			br = new BufferedReader(fr);
+
+			String jsonsmapping = "";
+			String sCurrentLine;
+			while ((sCurrentLine = br.readLine()) != null) {
+				jsonsmapping += sCurrentLine;
+			}
+			JSONObject jm = JSONFactoryUtil.createJSONObject(jsonsmapping);
+			JSONArray modelsmapping = jm.getJSONArray("models");
+			
+			String jsonString = "{";
+			jsonString += "\"parameters\": {";
+			jsonString += "\"futuregateway_uri\": \"" + fgURL + "\",";
+			jsonString += "\"authorization_token\": \"" + token + "\",";
+			jsonString += "\"task_id\": \"" + taskid + "\",";
+			jsonString += "\"config_json\": \"[";
+			
+			for (int i = 0; i < models.length; i++) {
+				String modelname = models[i];
+				for (int j = 0; j < modelsmapping.length(); j++) {
+					JSONObject modelmapping = modelsmapping.getJSONObject(j);
+					String name = modelmapping.getString("model");
+					if (name.equals(modelname)) {
+						String host = modelmapping.getString("host");
+						String port = modelmapping.getString("port");
+						String username = modelmapping.getString("username");
+						String password = modelmapping.getString("password");
+						if (i == models.length - 1)
+							jsonString += "{\\\"host\\\":\\\"" + host + "\\\",\\\"port\\\":\\\"" + port + "\\\",\\\"login\\\":\\\"" + username + "\\\",\\\"password\\\":\\\"" + password + "\\\",\\\"argument\\\":\\\"8 " + modelname + " " + scenario + " " + time_frequency + " " + percentile + " " + historical_time_min + "_" + historical_time_max + " " + scenario_time_min + "_" + scenario_time_max + " " + latmin + ":" + latmax + "|" + lonmin + ":" + lonmax + " r360x180\\\"}";
+						else
+							jsonString += "{\\\"host\\\":\\\"" + host + "\\\",\\\"port\\\":\\\"" + port + "\\\",\\\"login\\\":\\\"" + username + "\\\",\\\"password\\\":\\\"" + password + "\\\",\\\"argument\\\":\\\"8 " + modelname + " " + scenario + " " + time_frequency + " " + percentile + " " + historical_time_min + "_" + historical_time_max + " " + scenario_time_min + "_" + scenario_time_max + " " + latmin + ":" + latmax + "|" + lonmin + ":" + lonmax + " r360x180\\\"},";
+					}
+				}
+			}
+			jsonString += "]\",";
+			jsonString += "\"token_service_uri\": \"https://fgw01.ncg.ingrid.pt/api/jsonws/iam.token/get-token\",";
+			jsonString += "\"token_service_user\": \"admin@fgapiserver.indigo.eu\",";
+	        jsonString += "\"token_service_password\": \"3t>145.v9u+CtVv\"";
+			jsonString += "}";
+			jsonString += "}";
+			jsonString += "\n";
+			System.out.println("json: " + jsonString);
+			
+			file = new File(tmp_path + "/parameters.json");  
+            file.createNewFile();
+            System.out.println("file: " + tmp_path + "/parameters.json");
             FileWriter fileWriter = new FileWriter(file);  
             fileWriter.write(jsonString);  
             fileWriter.flush();  
             fileWriter.close();  
-
-        } catch (IOException e) {  
-            e.printStackTrace();  
-        }
+		} catch (IOException | JSONException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
 		return file;
 	}
 	
 	public void sendTaskInputFile(int idtask, File uploadFile1, File uploadFile2) throws IOException {
-		String requestURL = fgURL + "/tasks/" + idtask + "/input";
+		String requestURL = fgURL + "/v1.0/tasks/" + idtask + "/input";
 		String charset = "UTF-8";
         System.out.println("\nSending POST request to " + requestURL);
- 
+        
         try {
             MultipartUtility multipart = new MultipartUtility(requestURL, charset, token);
              
             multipart.addFilePart("file[]", uploadFile1);
-            System.out.println("uploadFile1");
             multipart.addFilePart("file[]", uploadFile2);
-            System.out.println("uploadFile2");
  
             List<String> response3 = multipart.finish();
              
@@ -266,7 +331,8 @@ public class MultiModelPortlet extends MVCPortlet {
                 System.out.println(line);
             }
         } catch (IOException ex) {
-            System.err.println(ex);
+            System.err.println("Failed to send task input files");
+            ex.printStackTrace();
         }
 	}
 }
