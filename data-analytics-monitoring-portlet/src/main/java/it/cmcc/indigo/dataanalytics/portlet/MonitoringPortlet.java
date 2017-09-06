@@ -22,9 +22,6 @@
 
 package it.cmcc.indigo.dataanalytics.portlet;
 
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import java.io.BufferedReader;
@@ -48,7 +45,7 @@ import org.osgi.service.component.annotations.Component;
 	property = {
 		"com.liferay.portlet.display-category=Data Analytics",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Data analytics monitoring portlet",
+		"javax.portlet.display-name=Experiments Monitoring",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
@@ -66,7 +63,6 @@ public class MonitoringPortlet extends MVCPortlet {
     ResourceResponse resourceResponse) throws IOException, PortletException {
         
         token = resourceRequest.getParameter("token");
-        System.out.println("nome parametro = " + token);
         URL obj = new URL("http://cloud144.ncg.ingrid.pt/apis/v1.0/tasks");
         HttpURLConnection con = (HttpURLConnection)obj.openConnection();
         con.setRequestMethod("GET");
@@ -85,17 +81,13 @@ public class MonitoringPortlet extends MVCPortlet {
 				response.append(inputLine);
 			}
 			in.close();
-//			try {
-//				JSONObject taskslist = JSONFactoryUtil.createJSONObject(response.toString());
-				System.out.println(response.toString());
-//				resourceRequest.setAttribute("taskslist", taskslist);
-				resourceResponse.getWriter().write(response.toString());
-//			} catch (JSONException e) {
-//				e.printStackTrace();
-//			}
+			String jsonResponse = response.toString();
+			int index = jsonResponse.indexOf("[");
+			jsonResponse = jsonResponse.substring(index);
+			jsonResponse = jsonResponse.substring(0, jsonResponse.length()-1);
+			resourceResponse.getWriter().write(jsonResponse);
 		}
 		else
 			System.out.println("Unable to connect to the URL " + obj.toString());
-    //super.serveResource(resourceRequest, resourceResponse);
     } 
 }
