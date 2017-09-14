@@ -65,7 +65,6 @@ public class MultipartUtility {
      */
     public void addFilePart(String fieldName, File uploadFile)
             throws IOException {
-    	System.out.println("add file part start");
         String fileName = uploadFile.getName();
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append(
@@ -91,7 +90,6 @@ public class MultipartUtility {
          
 //        writer.append(LINE_FEED);
         writer.flush(); 
-        System.out.println("add file part end");
     }
  
     /**
@@ -110,71 +108,10 @@ public class MultipartUtility {
      * status OK, otherwise an exception is thrown.
      * @throws IOException
      */
-    /*public List<String> finish() throws IOException {
-        List<String> response = new ArrayList<String>();
- 
-        writer.append(LINE_FEED).flush();
-        writer.append("--" + boundary + "--").append(LINE_FEED);
-        System.out.println(writer.toString());
-        writer.close();
- 
-        // checks server's status code first
-        int status = httpConn.getResponseCode();
-        if (status == HttpURLConnection.HTTP_OK) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(
-                    httpConn.getInputStream()));
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                response.add(line);
-            }
-            reader.close();
-            httpConn.disconnect();
-        } else {
-            throw new IOException("Server returned non-OK status: " + status);
-        }
- 
-        return response;
-    }*/
-    
-    /*public List<String> finish() throws IOException {
-        List<String> response = new ArrayList<String>();
- 
-        writer.append(LINE_FEED).flush();
-        writer.append("--" + boundary + "--").append(LINE_FEED);
-        System.out.println(writer.toString());
-        writer.close();
- 
-        // checks server's status code first
-        int status = httpConn.getResponseCode();
-
-		// read message body
-		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				httpConn.getInputStream()));
-		String line = null;
-		while ((line = reader.readLine()) != null) {
-			response.add(line);
-		}
-		reader.close();
-
-        if (status != HttpURLConnection.HTTP_OK) {
-			final StringBuilder builder = new StringBuilder();
-			builder.append("Server returned non-OK status: ");
-			builder.append(status).append('\n');
-			for (final String responseLine : response) {
-				builder.append(responseLine).append('\n');
-			}
-            throw new IOException(builder.toString());
-        }
-
-        httpConn.disconnect();
-        return response;
-    }*/
-    
     public List<String> finish() throws IOException {
 		try {
             writer.append(LINE_FEED).flush();
             writer.append("--" + boundary + "--").append(LINE_FEED);
-            System.out.println(writer.toString());
             writer.close();
      
             // checks server's status code first

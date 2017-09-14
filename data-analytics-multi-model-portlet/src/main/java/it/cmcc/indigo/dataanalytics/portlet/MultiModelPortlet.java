@@ -58,7 +58,7 @@ import org.osgi.service.component.annotations.Component;
 	property = {
 		"com.liferay.portlet.display-category=Data Analytics",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Data analytics multi model portlet",
+		"javax.portlet.display-name=Multi Model Analysis Submission",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
@@ -69,7 +69,8 @@ import org.osgi.service.component.annotations.Component;
 
 public class MultiModelPortlet extends MVCPortlet {
 	
-	private String fgURL = "http://cloud144.ncg.ingrid.pt/apis";
+//	private String fgURL = "http://cloud144.ncg.ingrid.pt/apis";
+	private String fgURL = "https://fgw01.ncg.ingrid.pt/apis";
 	
 	private String token = null;
 	
@@ -91,11 +92,10 @@ public class MultiModelPortlet extends MVCPortlet {
 	public void submitExperiment(ActionRequest request, ActionResponse response) throws JSONException, IOException {
 		
 		token = ParamUtil.getString(request, "token");
-		System.out.println("token: " + token);
 		
 		models = ParamUtil.getParameterValues(request, "model");
 		for (int i = 0; i < models.length; i++) {
-			System.out.println("models " + i + "= " + models[i]);
+			System.out.println("models " + i + ": " + models[i]);
 			
 		}
 		
@@ -146,9 +146,8 @@ public class MultiModelPortlet extends MVCPortlet {
 //	        HttpDownloadUtility.downloadFile("https://raw.githubusercontent.com/indigo-dc/tosca-templates/master/kepler-batch.yaml", tmp_path.toString());
 //			System.out.println(tmp_path.toString() + "/tosca_template.yaml");
 //			File uploadFile1 = new File(tmp_path.toString() + "/tosca_template.yaml");
-			File uploadFile2 = new File("/home/futuregateway/kepler-batch/example/tosca_template.yaml");
-			File uploadFile1 = createParametersFile(idtask, tmp_path);
-//			File uploadFile2 = new File("/home/futuregateway/kepler-batch/example/parameters.json");
+	        File uploadFile1 = createParametersFile(idtask, tmp_path);
+			File uploadFile2 = new File("/home/futuregateway/FutureGateway/fgAPIServer/apps/kepler-batch/tosca_template.yaml");
 			sendTaskInputFile(idtask, uploadFile1, uploadFile2);
 		}
 		else
