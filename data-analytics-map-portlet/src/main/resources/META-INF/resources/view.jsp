@@ -23,21 +23,14 @@
 %>
 
 <%@ include file="/init.jsp"%>
-<script type="text/javascript">
-	var token = null;
-	Liferay.Service(
-         '/iam.token/get-token',
-         function(obj) {
-        	 token = obj;
-         }
-    );
-</script>
+
 
 <div class="panel panel-default">
-	<div class="panel-body">
+The url is: <%=request.getAttribute("url") %>
+	<%-- <div class="panel-body">
 		<p>
 			<img src="<%=request.getContextPath()%>/images/<%=request.getAttribute("pngname")%>"/>
 		</p>
-	</div>
+	</div> --%>
 </div>
 <div class="panel-footer"></div>

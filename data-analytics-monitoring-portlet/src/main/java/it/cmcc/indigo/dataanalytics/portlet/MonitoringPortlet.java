@@ -38,14 +38,15 @@ import javax.portlet.ResourceResponse;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * Main class for the Future Gateay tasks monitoring.
+ * Main class for the Future Gateway tasks monitoring.
  */
 @Component(
 	immediate = true,
 	property = {
 		"com.liferay.portlet.display-category=Data Analytics",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Experiments Monitoring",
+		"javax.portlet.name=monitoring",
+		"javax.portlet.display-name=Experiments monitoring",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
@@ -61,9 +62,11 @@ public class MonitoringPortlet extends MVCPortlet {
 	@Override
     public void serveResource(ResourceRequest resourceRequest,
     ResourceResponse resourceResponse) throws IOException, PortletException {
-        
+		
         token = resourceRequest.getParameter("token");
-        URL obj = new URL("http://cloud144.ncg.ingrid.pt/apis/v1.0/tasks");
+        
+//    	URL obj = new URL("http://cloud144.ncg.ingrid.pt/apis/v1.0/tasks");
+    	URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks");
         HttpURLConnection con = (HttpURLConnection)obj.openConnection();
         con.setRequestMethod("GET");
 		con.setRequestProperty("Authorization", "Bearer " + token);

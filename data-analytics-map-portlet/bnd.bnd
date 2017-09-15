@@ -1,3 +1,3 @@
-Bundle-Name: data-analytics-map-portlet
-Bundle-SymbolicName: it.cmcc.indigo.map
-Bundle-Version: 1.0.1
+Bundle-Name: Map visualization
+Bundle-SymbolicName: it.cmcc.indigo.enes.map
+Bundle-Version: 0.0.2
