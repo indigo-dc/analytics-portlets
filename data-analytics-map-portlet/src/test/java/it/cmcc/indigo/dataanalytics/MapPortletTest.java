@@ -22,17 +22,46 @@
 
 package it.cmcc.indigo.dataanalytics;
 
-import static org.junit.Assert.assertTrue;
+import javax.portlet.Event;
+import javax.portlet.EventRequest;
+import javax.portlet.EventResponse;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
-
-	@Test
-	public final void testDoViewRenderRequestRenderResponse() {
-		String value = "avg.png";
-		String regex = ".*\\.(png|jpg|gif|bmp)";
-		assertTrue(value.matches(regex));
-	}
-
+	
+	@Mock
+	private EventRequest request;
+	
+	@Mock
+	private EventResponse response;
+	
+	@Mock
+	private Event event;
+	
+	/**
+     * Prepare the environment.
+     * @throws Exception In case of a problem to replicate Liferay context
+     */
+    @Before
+    public final void setUp() throws Exception {
+    	Mockito.when(request.getEvent()).thenReturn(event);
+    }
+    
+    /**
+     * Test the portlet.
+     * @throws Exception In case of problem
+     */
+    @Test
+    public final void testGetPath() throws Exception {
+    	Mockito.when(event.getValue()).thenReturn("url|token");
+    	MapPortlet map = new MapPortlet();
+    	map.getPath(request, response);
+    }
 }
