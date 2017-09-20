@@ -45,6 +45,9 @@ public class MapPortletTest {
 	@Mock
 	private Event event;
 	
+	@Mock
+	private MapPortlet map;
+	
 	/**
      * Prepare the environment.
      * @throws Exception In case of a problem to replicate Liferay context
@@ -61,7 +64,7 @@ public class MapPortletTest {
     @Test
     public final void testGetPath() throws Exception {
     	Mockito.when(event.getValue()).thenReturn("url|token");
-    	MapPortlet map = new MapPortlet();
+//    	MapPortlet map = new MapPortlet();
     	map.getPath(request, response);
     }
 }
