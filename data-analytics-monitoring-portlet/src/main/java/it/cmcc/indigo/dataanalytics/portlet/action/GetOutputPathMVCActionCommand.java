@@ -76,8 +76,9 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
     						String completeurl = fileobj.getString("url");
     						int index = completeurl.indexOf("&");
     						String url = completeurl.substring(0, index);
+    						
     						QName qName = new QName("http://cloud144.ncg.ingrid.pt", "getpath");
-        					actionResponse.setEvent(qName, "/tmp/something" + url);
+        					actionResponse.setEvent(qName, url + "|" + token);
         					System.out.println("finished.");
     					}
     					else

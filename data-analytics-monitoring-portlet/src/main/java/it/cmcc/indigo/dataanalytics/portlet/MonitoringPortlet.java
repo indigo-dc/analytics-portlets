@@ -23,6 +23,8 @@
 package it.cmcc.indigo.dataanalytics.portlet;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
+import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.BufferedReader;
 import java.io.IOException;

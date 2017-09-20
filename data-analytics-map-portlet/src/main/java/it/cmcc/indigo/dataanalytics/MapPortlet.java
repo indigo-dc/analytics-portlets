@@ -22,18 +22,12 @@
 package it.cmcc.indigo.dataanalytics;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.util.ParamUtil;
-
-import java.io.IOException;
 
 import javax.portlet.Event;
 import javax.portlet.EventRequest;
 import javax.portlet.EventResponse;
 import javax.portlet.Portlet;
-import javax.portlet.PortletException;
 import javax.portlet.ProcessEvent;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -42,7 +36,8 @@ import org.osgi.service.component.annotations.Component;
 	property = {
 		"com.liferay.portlet.display-category=Data Analytics",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Map visualization",
+		"javax.portlet.name=varmap",
+		"javax.portlet.display-name=Variance Map",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
@@ -58,20 +53,9 @@ public class MapPortlet extends MVCPortlet {
 	public void getPath(EventRequest request, EventResponse response) {
 		System.out.println("consumer!!!");
 		Event event = request.getEvent();
-		String url = (String)event.getValue();
-		System.out.println("url: " + url);
-//		request.setAttribute("url", url);
-		response.setRenderParameter("url", url);
+		String urltoken = (String)event.getValue();
+		System.out.println("consumer urltoken: " + urltoken);
+		//response.setRenderParameter("urltoken", urltoken);
+		request.setAttribute("urltoken", urltoken);
 	}
-	
-	@Override
-	public void doView(RenderRequest request, RenderResponse response) throws IOException, PortletException {
-		System.out.println("doview");
-		String url = ParamUtil.getString(request, "url");
-		System.out.println("url: " + url);
-		request.setAttribute("url", url);
-		System.out.println("url: " + url);
-		super.doView(request, response);
-	}
-
 }
