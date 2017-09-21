@@ -54,7 +54,6 @@ public class MultipartUtility {
         outputStream = httpConn.getOutputStream();
         writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
                 true);
-        System.out.println("multipart 1");
     }
  
     /**
@@ -65,6 +64,7 @@ public class MultipartUtility {
      */
     public void addFilePart(String fieldName, File uploadFile)
             throws IOException {
+    	System.out.println("add file part start");
         String fileName = uploadFile.getName();
         writer.append("--" + boundary).append(LINE_FEED);
         writer.append(
@@ -89,7 +89,8 @@ public class MultipartUtility {
         inputStream.close();
          
 //        writer.append(LINE_FEED);
-        writer.flush();    
+        writer.flush();
+        System.out.println("add file part end");
     }
  
     /**

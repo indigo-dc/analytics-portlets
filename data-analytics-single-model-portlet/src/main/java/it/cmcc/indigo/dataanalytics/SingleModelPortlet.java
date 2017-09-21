@@ -34,10 +34,13 @@ import it.cmcc.indigo.utility.MultipartUtility;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import javax.portlet.ActionRequest;
@@ -46,12 +49,15 @@ import javax.portlet.Portlet;
 
 import org.osgi.service.component.annotations.Component;
 
+/**
+ * Main class for the multi-model analysis submission.
+ */
 @Component(
 	immediate = true,
 	property = {
 		"com.liferay.portlet.display-category=Data Analytics",
 		"com.liferay.portlet.instanceable=true",
-		"javax.portlet.display-name=Data analytics single model portlet",
+		"javax.portlet.display-name=Data Analytics Ophidia Submission",
 		"javax.portlet.init-param.template-path=/",
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.resource-bundle=content.Language",
@@ -63,13 +69,15 @@ import org.osgi.service.component.annotations.Component;
 public class SingleModelPortlet extends MVCPortlet {
 	
 	private String token = null;
+	private String command = null;
 	
 	public void submitCommand(ActionRequest request, ActionResponse response) throws IOException {
 		token = ParamUtil.getString(request, "token");
-		System.out.println("token: " + token);
+		command = ParamUtil.getString(request, "command");
+//		command = "oph_list level=3;cube=http://127.0.0.1/ophidia/11/20;cwd=/;cdd=/;";
+		System.out.println("command: " + command);
 		
 		String fgurl = "http://cloud144.ncg.ingrid.pt/apis/v1.0";
-//		String token = "eyJraWQiOiJyc2ExIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJmZDUxYzZmNi01NTk4LTQ0ZTYtYTU1NC05Zjg3NTJkZGVhMTIiLCJpc3MiOiJodHRwczpcL1wvaWFtLXRlc3QuaW5kaWdvLWRhdGFjbG91ZC5ldVwvIiwiZXhwIjoxNTAxNTc4MDY2LCJpYXQiOjE1MDE1NzQ0NjYsImp0aSI6IjYzM2U0Y2VlLTNhZjUtNDdkOS1iNmZmLTM0MTBiMTAyMzkwOSJ9.L66QWg2HIBfCthtOqENzDxhY29PIT095POBTIVNVklV4sbYM-vk9PfkFlMmmuyEnD8ifRiITXbM1HI6YZIXekTh_4rfDkJODVteHNEKrFlGAiUZAUej7nDNPHCbiSvZggLYhzG-hFnFMl_YdQdDL3xv3Ix8Fe52H7GdO77pmVyk";
 		
 		/** First step: get applications **/
 		URL obj = new URL(fgurl + "/applications");
@@ -92,7 +100,6 @@ public class SingleModelPortlet extends MVCPortlet {
 				bufferresponse.append(inputLine);
 			}
 			in.close();
-//			System.out.println(bufferresponse.toString());
 			
 			try {
 				JSONObject myObject = JSONFactoryUtil.createJSONObject(bufferresponse.toString());
@@ -150,21 +157,88 @@ public class SingleModelPortlet extends MVCPortlet {
 					int idtask = myObject2.getInt("id");
 					System.out.println("idtask: " + idtask);
 					
+					// temp dir creation
+					String tmp_dir_prefix = "dataanalytics_";
+			        Path tmp_path = Files.createTempDirectory(tmp_dir_prefix);
+			        
+			        String[] space = command.split("\\s+");
+			        String operator = space[0];
+			        System.out.println("operator: " + operator);
+			        String parameters = space[1];
+			        System.out.println("parameters: " + parameters);
+			        
+			        String[] parametersarray = parameters.split(";");
+					
+					File workflowfile = null;
+					
+					/*String jsonString = "{";
+					    jsonString += "\"command\": \"oph_list level=3;cube=http://127.0.0.1/ophidia/11/20;cwd=/;cdd=/\",";
+					    jsonString += "\"name\": \"oph_list\",";
+					    jsonString += "\"author\": \"indigo\",";
+					    jsonString += "\"abstract\": \"-\",";
+					    jsonString += "\"exec_mode\": \"sync\",";
+					    jsonString += "\"tasks\":";
+					    jsonString += "[";
+							jsonString += "{";
+					            jsonString += "\"name\": \"Task 0\",";
+					            jsonString += "\"operator\": \"oph_list\",";
+					            jsonString += "\"arguments\": [\"level=3\",\"cube=http://127.0.0.1/ophidia/11/20\",\"cwd=/\",\"cdd=/\"],";
+					            jsonString += "\"on_error\": \"skip\"";
+				            jsonString += "}";
+			            jsonString += "]";
+		            jsonString += "}";
+		            jsonString += "\n";*/
+					
+					String jsonString = "{";
+					    jsonString += "\"command\": \"" + command + "\",";
+					    jsonString += "\"name\": \"" + operator + "\",";
+					    jsonString += "\"author\": \"indigo\",";
+					    jsonString += "\"abstract\": \"-\",";
+					    jsonString += "\"exec_mode\": \"sync\",";
+					    jsonString += "\"tasks\":";
+					    jsonString += "[";
+							jsonString += "{";
+					            jsonString += "\"name\": \"Task 0\",";
+					            jsonString += "\"operator\": \"" + operator + "\",";
+					            jsonString += "\"arguments\": [";
+					            for (int i = 0; i < parametersarray.length; i++) {
+					            	if (i == parametersarray.length - 1)
+					            		jsonString += "\"" + parametersarray[i] + "\"";
+					            	else
+					            		jsonString += "\"" + parametersarray[i] + "\",";
+					            }
+//					            jsonString += "\"arguments\": [\"level=3\",\"cube=http://127.0.0.1/ophidia/11/20\",\"cwd=/\",\"cdd=/\"],";
+					            jsonString += "],";
+					            jsonString += "\"on_error\": \"skip\"";
+				            jsonString += "}";
+			            jsonString += "]";
+		            jsonString += "}";
+		            jsonString += "\n";
+					
+					System.out.println("jsonString: " + jsonString);
+					System.out.println("path: " + tmp_path + "/workflow.json");
+					
+					try {  
+
+			            // Writing to a file  
+						workflowfile = new File(tmp_path + "/workflow.json");  
+						workflowfile.createNewFile();  
+			            FileWriter fileWriter = new FileWriter(workflowfile);  
+			            fileWriter.write(jsonString);  
+			            fileWriter.flush();  
+			            fileWriter.close();  
+
+			        } catch (IOException e) {  
+			            e.printStackTrace();  
+			        }
+					
 					/** Third step: three input files sending **/
 					String requestURL = fgurl + "/tasks/" + idtask + "/input";
 					
 					File uploadFile1 = new File("/home/futuregateway/FutureGateway/fgAPIServer/apps/oph-term/script.sh");
-			        File uploadFile2 = new File("/home/futuregateway/FutureGateway/fgAPIServer/apps/oph-term/workflow.json");
+//			        File uploadFile2 = new File("/home/futuregateway/FutureGateway/fgAPIServer/apps/oph-term/workflow.json");
+					File uploadFile2 = workflowfile;
 			        File uploadFile3 = new File("/home/futuregateway/FutureGateway/fgAPIServer/apps/oph-term/oph-credentials.txt");
-			        
-//			        URL url = new URL(requestURL);
-//			        final MultipartUtility http = new MultipartUtility(url, token);
-//			        http.addFilePart("file[]", uploadFile1);
-//			        http.addFilePart("file[]", uploadFile2);
-//			        http.addFilePart("file[]", uploadFile3);
-//			        final byte[] bytes = http.finish();
-//			        final OutputStream os = new FileOutputStream("someoutput.txt");
-//			        os.write(bytes);
 			        
 					String charset = "UTF-8";
 			        System.out.println("Sending POST request to " + requestURL);
@@ -172,12 +246,12 @@ public class SingleModelPortlet extends MVCPortlet {
 			        try {
 			            MultipartUtility multipart = new MultipartUtility(requestURL, charset, token);
 			             
-//			            multipart.addHeaderField("User-Agent", "CodeJava");
-//			            multipart.addHeaderField("Test-Header", "Header-Value");
-			             
 			            multipart.addFilePart("file[]", uploadFile1);
+			            System.out.println("*** file1 ***");
 			            multipart.addFilePart("file[]", uploadFile2);
+			            System.out.println("*** file2 ***");
 			            multipart.addFilePart("file[]", uploadFile3);
+			            System.out.println("*** file3 ***");
 			 
 			            List<String> response3 = multipart.finish();
 			             
@@ -189,7 +263,6 @@ public class SingleModelPortlet extends MVCPortlet {
 			        } catch (IOException ex) {
 			            System.err.println(ex);
 			        }
-					
 				}
 				else
 					System.out.println("The application doesn't exist.");

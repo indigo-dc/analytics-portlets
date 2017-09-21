@@ -1,4 +1,4 @@
-<%
+<%--
 /**
  * *********************************************************************
  * Copyright (c) 2017: Euro Mediterranean Center on Climate Change (CMCC) Foundation -
@@ -20,27 +20,30 @@
  * 
  **********************************************************************
  */
-%>
+--%>
 
-<%@ page contentType="text/html; charset=ISO-8859-1"%>
 <%@ include file="/init.jsp" %>
+
 <portlet:actionURL name="submitCommand" var="submitCommand" />
 
 <div class="panel panel-default">
     <div>
-		<form action="<%=submitCommand%>" method="Post">
-			<input type="hidden" name="<portlet:namespace/>token" id="<portlet:namespace/>token"/>
-			<input type="text" name="<portlet:namespace/>test" id="<portlet:namespace/>test" value="test_mio"/>
-	    	<input type="submit" value="Submit"/>
-		</form>
-	</div>       
+        <br>
+        <form action="<%=submitCommand%>" method="Post">
+            <input name="<portlet:namespace/>token" id="<portlet:namespace/>token" type="hidden"/>
+
+            Ophidia command <input style="width:500px;" type="text" name="<portlet:namespace/>command" id="<portlet:namespace/>command" />
+           
+            <input type="submit" value="Submit" name="<portlet:namespace/>submit"/>
+        </form>
+        <br>
+    </div>      
 </div>
 <script type="text/javascript">
-	Liferay.Service(
+    Liferay.Service(
          '/iam.token/get-token',
          function(obj) {
-        	 document.getElementById('<portlet:namespace/>token').value = obj.token;
-        	 document.getElementById('<portlet:namespace/>test').value = "test_token";
+             document.getElementById('<portlet:namespace/>token').value = obj.token;
          }
     );
 </script>

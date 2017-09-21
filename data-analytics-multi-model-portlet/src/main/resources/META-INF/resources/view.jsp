@@ -109,14 +109,14 @@
 			                           
 			            Insert the historical time period
 			            <br>       
-			            <p><input style="width:210px;" name="<portlet:namespace/>historical_time_min" type="text" value="1970" id="<portlet:namespace/>historical_time_min" label="Historical time min" />
-			            <input style="width:210px;" name="<portlet:namespace/>historical_time_max" type="text" value="2005" id="<portlet:namespace/>historical_time_max" label="Historical time max" /></p>
+			            <p><input style="width:210px;" name="<portlet:namespace/>historical_time_min" type="text" value="1976" id="<portlet:namespace/>historical_time_min" label="Historical time min" />
+			            <input style="width:210px;" name="<portlet:namespace/>historical_time_max" type="text" value="2006" id="<portlet:namespace/>historical_time_max" label="Historical time max" /></p>
 			            <br>
 			           
 			            Insert the scenario time period
 			            <br>
-			            <p><input style="width:210px;" name="<portlet:namespace/>scenario_time_min" type="text" value="2020" id="<portlet:namespace/>scenario_time_min" label="Scenario time min" />
-			            <input style="width:210px;" name="<portlet:namespace/>scenario_time_max" type="text" value="2100" id="<portlet:namespace/>scenario_time_max" label="Scenario time max" /></p>
+			            <p><input style="width:210px;" name="<portlet:namespace/>scenario_time_min" type="text" value="2071" id="<portlet:namespace/>scenario_time_min" label="Scenario time min" />
+			            <input style="width:210px;" name="<portlet:namespace/>scenario_time_max" type="text" value="2101" id="<portlet:namespace/>scenario_time_max" label="Scenario time max" /></p>
 			            <br>
  					</td>
  				</tr>
