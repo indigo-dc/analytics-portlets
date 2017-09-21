@@ -20,7 +20,7 @@ buildscript {
 
 test {
 	jacoco {
-		excludes = ["src/test/java"]
+		excludes += ["**/src.test.java/**"]
     	}	
 }
 
