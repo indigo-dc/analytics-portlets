@@ -1,7 +1,7 @@
 /**
  * *********************************************************************
- * Copyright (c) 2017: Euro Mediterranean Center on Climate Change (CMCC) Foundation -
- * INDIGO-DataCloud
+ * Copyright (c) 2017: Euro Mediterranean Center on Climate Change (CMCC)
+ * Foundation - INDIGO-DataCloud
  *
  * See http://www.cmcc.it for details on the copyright holders.
  *
@@ -16,7 +16,6 @@
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  * License for the specific language governing permissions and limitations under
  * the License.
- * 
  **********************************************************************
  */
 
@@ -33,38 +32,52 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Main class for MapPortlet test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
-	
-	@Mock
-	private EventRequest request;
-	
-	@Mock
-	private EventResponse response;
-	
-	@Mock
-	private Event event;
-	
-	@Mock
-	private MapPortlet map;
-	
-	/**
+
+    /**
+     * Fake request for getPath method.
+     */
+    @Mock
+    private EventRequest request;
+
+    /**
+     * Fake response for getPath method.
+     */
+    @Mock
+    private EventResponse response;
+
+    /**
+     * Fake event for getPath method.
+     */
+    @Mock
+    private Event event;
+
+    /**
+     * Fake portlet class for getPath method.
+     */
+    @Mock
+    private MapPortlet map;
+
+    /**
      * Prepare the environment.
      * @throws Exception In case of a problem to replicate Liferay context
      */
     @Before
     public final void setUp() throws Exception {
-    	Mockito.when(request.getEvent()).thenReturn(event);
+        Mockito.when(request.getEvent()).thenReturn(event);
     }
-    
+
     /**
      * Test the portlet.
      * @throws Exception In case of problem
      */
     @Test
     public final void testGetPath() throws Exception {
-    	Mockito.when(event.getValue()).thenReturn("url|token");
-//    	MapPortlet map = new MapPortlet();
-    	map.getPath(request, response);
+        Mockito.when(event.getValue()).thenReturn("url|token");
+        map.getPath(request, response);
     }
 }
