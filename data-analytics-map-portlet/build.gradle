@@ -19,7 +19,9 @@ buildscript {
 }
 
 test {
-	exclude 'src/test/java'
+	jacoco {
+		excludes = ["src/test/java"]
+    	}	
 }
 
 dependencies {
