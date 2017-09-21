@@ -18,6 +18,10 @@ buildscript {
     }
 }
 
+test {
+	exclude 'src/test/java'
+}
+
 dependencies {
     compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.0.0"
     compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "2.0.0"
