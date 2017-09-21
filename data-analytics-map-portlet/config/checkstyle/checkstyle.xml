@@ -30,9 +30,9 @@
     <property name="fileExtensions" value="java, properties, xml"/>
 
     <!-- Add suppressions -->
-    <module name="SuppressionFilter">
+    <!-- <module name="SuppressionFilter">
         <property name="file" value="${baseDir}/config/checkstyle/suppressions.xml"/>
-    </module>
+    </module> -->
 
     <!-- Checks that a package-info.java file exists for each package.     -->
     <!-- See http://checkstyle.sf.net/config_javadoc.html#JavadocPackage -->
