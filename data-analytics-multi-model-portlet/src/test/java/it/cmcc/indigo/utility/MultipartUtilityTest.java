@@ -19,33 +19,29 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics;
-
+package it.cmcc.indigo.utility;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-/**
- * Main class for multi-model submission portlet test.
- */
 @RunWith(MockitoJUnitRunner.class)
-public class MultiModelPortletTest {
-
+public class MultipartUtilityTest {
+    
     @Before
     public final void setUp() throws Exception {
         //Mockito.when(request.getEvent()).thenReturn(event);
     }  
 
     /**
-     * Test the portlet.
+     * Test the class.
      * @throws Exception In case of problem
      */
     @Test
     public final void testGetPath() throws Exception {
         //Mockito.when(event.getValue()).thenReturn("url|token");
     }
+
 }
