@@ -67,9 +67,14 @@ public class MapPortlet extends MVCPortlet {
             final EventResponse response) {
         System.out.println("consumer!!!");
         Event event = request.getEvent();
-        String urltoken = (String) event.getValue();
-        System.out.println("consumer urltoken: " + urltoken);
-        //response.setRenderParameter("urltoken", urltoken);
-        request.setAttribute("urltoken", urltoken);
+        if (event != null) {
+        	String urltoken = (String) event.getValue();
+            System.out.println("consumer urltoken: " + urltoken);
+            //response.setRenderParameter("urltoken", urltoken);
+            request.setAttribute("urltoken", urltoken);
+        }
+        else {
+        	System.out.println("No event detected");
+        }
     }
 }
