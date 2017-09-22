@@ -18,23 +18,8 @@
  * the License.
  **********************************************************************
  */
+/**
+ * Package containing the portlet.
+ */
 
-package it.cmcc.indigo.dataanalytics;
-
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
-
-public class MultiModelPortletTest {
-
-    @Test
-    public final void testDoViewRenderRequestRenderResponse() {
-        String url = "http://opendap.knmi.nl/knmi/thredds/dodsC/CLIPC/"
-                + "cmcc/SWE/SWE_ophidia-0-10-1_CMCC_GlobSnow-SWE-L3B_monClim_"
-                + "19791001-20080701_1979-2008.nc.dds";
-        String regex = "\\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*"
-                + "[-a-zA-Z0-9+&@#/%=~_|]";
-
-        assertTrue(url.matches(regex));
-    }
-}
+package it.cmcc.indigo.dataanalytics.portlet;

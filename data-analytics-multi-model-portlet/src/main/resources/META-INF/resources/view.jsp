@@ -188,8 +188,24 @@ function drawNewRect(newRect) {
     
     var latmin = southWest.lat();
     var latmax = northEast.lat();
-    var lonmin = southWest.lng() + 180;
-    var lonmax = northEast.lng() + 180;
+    
+    var lonmin_temp = southWest.lng();
+    var lonmin = null;
+    if (lonmin_temp >= 0) {
+    	lonmin = lonmin_temp;	
+    }
+    else if (lonmin_temp < 0) {
+    	lonmin = 360 + lonmin_temp
+    }
+    
+    var lonmax_temp = northEast.lng();
+    var lonmax = null;
+    if (lonmax_temp >= 0) {
+    	lonmax = lonmax_temp;
+    }
+    else if (lonmax_temp < 0) {
+    	lonmax = 360 + lonmax_temp
+    }
     
     document.getElementById("latmin").value = latmin.toFixed(2);
     document.getElementById("latmax").value = latmax.toFixed(2);
