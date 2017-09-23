@@ -37,7 +37,7 @@ public class MultipartUtilityTest {
 
     /**
      * Test the class.
-     * @throws Exception In case of problem
+     * @throws Exception in case of problem
      */
     @Test
     public final void testGetPath() throws Exception {
