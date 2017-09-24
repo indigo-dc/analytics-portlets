@@ -76,9 +76,15 @@ public class MapPortletTest {
      * @throws Exception In case of problem
      */
     @Test
-    public final void testGetPath() throws Exception {
+    public final void testGetPathWithEventNotNull() throws Exception {
         Mockito.when(event.getValue()).thenReturn("url|token");
         map = new MapPortlet();
+        map.getPath(request, response);
+    }
+    
+    public final void testGetPathWithEventNull() {
+    	Mockito.when(event.getValue()).thenReturn(null);
+    	map = new MapPortlet();
         map.getPath(request, response);
     }
 }
