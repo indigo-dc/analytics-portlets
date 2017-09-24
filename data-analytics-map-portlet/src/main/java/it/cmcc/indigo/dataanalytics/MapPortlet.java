@@ -75,6 +75,7 @@ public class MapPortlet extends MVCPortlet {
         }
         else {
         	System.out.println("No event detected");
+        	request.setAttribute("urltoken", null);
         }
     }
 }
