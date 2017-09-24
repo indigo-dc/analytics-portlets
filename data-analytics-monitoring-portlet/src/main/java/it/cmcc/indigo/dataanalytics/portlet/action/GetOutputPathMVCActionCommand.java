@@ -83,8 +83,8 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
 
-        final int code1 = 201;
-        final int code2 = 202;
+        final int code1 = 200;
+        final int code2 = 201;
         if (responseCode == code1 || responseCode == code2) {
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
