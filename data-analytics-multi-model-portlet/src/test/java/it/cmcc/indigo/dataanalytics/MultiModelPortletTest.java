@@ -21,6 +21,11 @@
 
 package it.cmcc.indigo.dataanalytics;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
@@ -56,17 +61,6 @@ public class MultiModelPortletTest {
     @Mock
     private ActionResponse response;
     
-    /**
-     * Fake request for http.
-     */
-    @Mock
-    private HttpServletRequest httpRequest;
-    
-    /**
-     * Fake portal util.
-     */
-    @Mock
-    private Portal portalImpl;
     
     /**
      * Prepare the environment.
@@ -74,8 +68,7 @@ public class MultiModelPortletTest {
      */
     @Before
     public final void setUp() throws Exception {
-        Mockito.when(portalImpl.getHttpServletRequest(
-           Mockito.any(PortletRequest.class))).thenReturn(httpRequest);
+
     }
     
      /**
@@ -111,16 +104,20 @@ public class MultiModelPortletTest {
         //assertEquals(multiModelPortlet.getAppID("kepler-batch"), 201);
     }*/
     
-/*    @Test
+    @Test
     public final void testNewFGTask() throws Exception {
-        multiModelPortlet = new MultiModelPortlet();
-        //Integer appid = org.mockito.Mockito.mock(Integer.class);
-        //multiModelPortlet.newFGTask(appid);
-       
-        //Mockito.when(multiModelPortlet.newFGTask(idapp)).thenReturn(idtask);
-    }*/
+        
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
+        HttpURLConnection con2 =  Mockito.mock(HttpURLConnection.class);
+        InputStream in = Mockito.mock(InputStream.class);
+        
+        Mockito.when(con2.getResponseCode()).thenReturn(200);
+        Mockito.when(con2.getInputStream()).thenReturn(in);  
+        
+        multiModelPortlet.newFGTask(3);
+    }
     
-/*    @Test
+/*   @Test
     public final void testCreateParametersFile() throws Exception {
         multiModelPortlet = new MultiModelPortlet();
         
@@ -131,7 +128,9 @@ public class MultiModelPortletTest {
     
 /*    @Test
     public final void testSendTaskInputFile() throws Exception {
-        multiModelPortlet = new MultiModelPortlet();
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
+        
+        multiModelPortlet.sendTaskInputFile(Mockito.anyInt(), uploadFile1, uploadFile2);
         
     }*/
     

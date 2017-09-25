@@ -36,6 +36,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -239,20 +240,26 @@ public class MultiModelPortlet extends MVCPortlet {
         System.out.println("Post parameters : " + urlParameters);
         System.out.println("Response Code : " + responseCode2);
 
-        BufferedReader in2 = new BufferedReader(
-                new InputStreamReader(con2.getInputStream()));
-        String inputLine2;
-        StringBuffer response2 = new StringBuffer();
+        final int code1 = 200;
+        final int code2 = 201;
+        int idtask = -1;
+        if (responseCode2 == code1 || responseCode2 == code2) {
+            InputStream in = con2.getInputStream();
+            BufferedReader in2 = new BufferedReader(new InputStreamReader(in));
+            
+            String inputLine2;
+            StringBuffer response2 = new StringBuffer();
 
-        while ((inputLine2 = in2.readLine()) != null) {
-            response2.append(inputLine2);
+            while ((inputLine2 = in2.readLine()) != null) {
+                response2.append(inputLine2);
+            }
+            in2.close();
+
+            JSONObject myObject2 = JSONFactoryUtil.createJSONObject(
+                    response2.toString());
+            idtask = myObject2.getInt("id");
         }
-        in2.close();
-
-        JSONObject myObject2 = JSONFactoryUtil.createJSONObject(
-                response2.toString());
-        int idtask = myObject2.getInt("id");
-
+       
         return idtask;
     }
 
