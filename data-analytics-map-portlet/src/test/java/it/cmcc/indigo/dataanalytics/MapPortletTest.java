@@ -82,6 +82,11 @@ public class MapPortletTest {
         map.getPath(request, response);
     }
     
+    /**
+     * Test the portlet.
+     * @throws Exception In case of problem
+     */
+    @Test
     public final void testGetPathWithIncorrectValue() {
     	Mockito.when(event.getValue()).thenReturn("urltoken");
     	map = new MapPortlet();
