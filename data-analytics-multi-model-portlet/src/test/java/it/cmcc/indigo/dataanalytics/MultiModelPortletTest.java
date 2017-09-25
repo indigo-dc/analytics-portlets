@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.nio.file.Path;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -42,6 +43,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
 import it.cmcc.indigo.dataanalytics.portlet.MultiModelPortlet;
+import it.cmcc.indigo.utility.MultipartUtility;
 
 /**
  * Main class for multi-model submission portlet test.
@@ -117,21 +119,25 @@ public class MultiModelPortletTest {
         multiModelPortlet.newFGTask(3);
     }
     
-/*   @Test
+   @Test
     public final void testCreateParametersFile() throws Exception {
-        multiModelPortlet = new MultiModelPortlet();
+       
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
+        Path tmpPath = Mockito.mock(Path.class);
         
-        //multiModelPortlet.createParametersFile(multiModelPortlet.getAppID("appname"), tmpPath);
+        multiModelPortlet.createParametersFile(300, tmpPath);
+
         
-        //Mockito.when(multiModelPortlet.createParametersFile(multiModelPortlet.getAppID("appname"), tmpPath)).thenReturn(uploadFile1);
-    }*/
+    }
     
 /*    @Test
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
+        File uploadFile1 = Mockito.mock(File.class);
+        File uploadFile2 = Mockito.mock(File.class);
+        MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
         
-        multiModelPortlet.sendTaskInputFile(Mockito.anyInt(), uploadFile1, uploadFile2);
-        
+        multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
     }*/
     
 }
