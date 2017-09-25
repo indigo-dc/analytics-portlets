@@ -94,15 +94,15 @@ public class MultipartUtility {
         writer.flush();
     }
 
-    /**
+/*    *//**
      * Adds a header field to the request.
      * @param name - name of the header field
      * @param value - value of the header field
-     */
+     *//*
     public final void addHeaderField(final String name, final String value) {
         writer.append(name + ": " + value).append(LINE_FEED);
         writer.flush();
-    }
+    }*/
 
     /**
      * Completes the request and receives response from the server.

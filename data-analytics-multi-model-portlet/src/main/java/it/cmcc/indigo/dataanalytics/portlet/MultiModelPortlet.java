@@ -72,6 +72,7 @@ public class MultiModelPortlet extends MVCPortlet {
     private String fgURL = "https://fgw01.ncg.ingrid.pt/apis";
 
     private String token = null;
+    private String modelsString = null;
     private String[] models = null;
     private String scenario = null;
     private String timeFrequency = null;
@@ -94,11 +95,16 @@ public class MultiModelPortlet extends MVCPortlet {
 
         token = ParamUtil.getString(request, "token");
 
-        models = ParamUtil.getParameterValues(request, "model");
+        modelsString = ParamUtil.getString(request,"modelsString");
+        
+        System.out.println("models =  " + modelsString);
+        
+        models = modelsString.split("\\|");;
+
         for (int i = 0; i < models.length; i++) {
             System.out.println("models " + i + ": " + models[i]);
         }
-
+        
         scenario = ParamUtil.getString(request, "scenario");
         System.out.println("scenario =  " + scenario);
 
