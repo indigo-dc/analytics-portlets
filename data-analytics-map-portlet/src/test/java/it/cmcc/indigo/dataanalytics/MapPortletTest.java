@@ -32,8 +32,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import junit.framework.Assert;
-
 /**
  * Main class for MapPortlet test.
  */
@@ -78,14 +76,14 @@ public class MapPortletTest {
      * @throws Exception In case of problem
      */
     @Test
-    public final void testGetPathWithEventNotNull() throws Exception {
+    public final void testGetPathWithCorrectValue() throws Exception {
         Mockito.when(event.getValue()).thenReturn("url|token");
         map = new MapPortlet();
         map.getPath(request, response);
     }
     
-    public final void testGetPathWithEventNull() {
-    	Mockito.when(event.getValue()).thenReturn(null);
+    public final void testGetPathWithIncorrectValue() {
+    	Mockito.when(event.getValue()).thenReturn("urltoken");
     	map = new MapPortlet();
         map.getPath(request, response);
     }
