@@ -21,4 +21,4 @@
 /**
  * Package containing the test class of the portlet.
  */
-package it.cmcc.indigo.dataanalytics;
+package it.cmcc.indigo.dataanalytics.map.portlet;

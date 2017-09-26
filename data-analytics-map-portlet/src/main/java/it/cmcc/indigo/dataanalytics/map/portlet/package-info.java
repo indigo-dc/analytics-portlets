@@ -21,4 +21,4 @@
 /**
  * Package containing the portlet.
  */
-package it.cmcc.indigo.dataanalytics;
+package it.cmcc.indigo.dataanalytics.map.portlet;

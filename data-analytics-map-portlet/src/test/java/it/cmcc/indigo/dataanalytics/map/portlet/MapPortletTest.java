@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics;
+package it.cmcc.indigo.dataanalytics.map.portlet;
 
 import javax.portlet.Event;
 import javax.portlet.EventRequest;
@@ -31,6 +31,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import it.cmcc.indigo.dataanalytics.map.portlet.MapPortlet;
 
 /**
  * Main class for MapPortlet test.
