@@ -125,19 +125,21 @@ public class MultiModelPortletTest {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
         
-        multiModelPortlet.createParametersFile(300, tmpPath);
-
-        
+        multiModelPortlet.createParametersFile(300, tmpPath);    
     }
     
-/*    @Test
+    @Test(expected=Exception.class)
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         File uploadFile1 = Mockito.mock(File.class);
         File uploadFile2 = Mockito.mock(File.class);
         MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
         
+        //Mockito.doNothing().when(multipart).addFilePart("file[]", uploadFile1);
+        
+        Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile1);
+            
         multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }*/
+    }
     
 }
