@@ -21,7 +21,12 @@
 
 package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,8 +47,29 @@ public class MultipartUtilityTest {
      */
     @Test
     public final void testMultipartUtility() throws IOException {
-        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token");
- 
+        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
+        
+    }
+    
+/*    @Test
+    public List<String> testFinish() {
+        return null;
+        
+    }*/
+    
+    @Test
+    public void testReadResponse() throws IOException {
+        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
+        
+        //InputStream is = Mockito.mock(InputStream.class);
+        InputStream is = new ByteArrayInputStream("test data".getBytes());
+        //InputStreamReader isreader = new InputStreamReader(is);
+        //BufferedReader reader = new BufferedReader(isreader);
+       
+        //Mockito.when(reader.readLine()).thenReturn("firstline");
+        
+        multipart.readResponse(is);
+         
     }
 
 }

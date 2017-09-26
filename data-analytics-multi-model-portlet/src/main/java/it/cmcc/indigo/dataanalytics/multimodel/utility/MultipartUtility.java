@@ -135,11 +135,10 @@ public class MultipartUtility {
         }
     }
 
-    private List<String> readResponse(final InputStream stream)
+    public List<String> readResponse(final InputStream stream)
             throws IOException {
         List<String> response = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(stream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         String line = null;
         while ((line = reader.readLine()) != null) {
             response.add(line);

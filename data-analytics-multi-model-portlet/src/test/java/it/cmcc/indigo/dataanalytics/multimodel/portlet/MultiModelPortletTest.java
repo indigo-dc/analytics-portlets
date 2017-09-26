@@ -133,8 +133,6 @@ public class MultiModelPortletTest {
         multiModelPortlet.createParametersFile(300, tmpPath);    
     }
     
-   
-    //non viene testato
     @Test(expected=Exception.class)
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
