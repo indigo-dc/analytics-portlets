@@ -21,15 +21,17 @@
 
 package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.List;
+import java.net.URLConnection;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -56,17 +58,27 @@ public class MultipartUtilityTest {
         return null;
         
     }*/
+    @Rule
+    public TemporaryFolder folder= new TemporaryFolder();
+    
+    @Test
+    public void testAddFilePart() throws IOException {
+        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
+        
+        //File uploadFile = Mockito.mock(File.class);
+        File uploadFile = folder.newFile("fileName.txt");
+        
+        //Mockito.when(uploadFile.getName()).thenReturn("filename");
+        //Mockito.when(URLConnection.guessContentTypeFromName(uploadFile.getName())).thenReturn("Content-Type");
+        Mockito.mock(FileInputStream.class);
+        
+        multipart.addFilePart("fieldName", uploadFile);
+    }
     
     @Test
     public void testReadResponse() throws IOException {
         MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
-        
-        //InputStream is = Mockito.mock(InputStream.class);
         InputStream is = new ByteArrayInputStream("test data".getBytes());
-        //InputStreamReader isreader = new InputStreamReader(is);
-        //BufferedReader reader = new BufferedReader(isreader);
-       
-        //Mockito.when(reader.readLine()).thenReturn("firstline");
         
         multipart.readResponse(is);
          
