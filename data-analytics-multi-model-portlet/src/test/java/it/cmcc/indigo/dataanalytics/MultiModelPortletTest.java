@@ -70,7 +70,7 @@ public class MultiModelPortletTest {
      */
     @Before
     public final void setUp() throws Exception {
-
+        
     }
     
      /**
@@ -101,7 +101,8 @@ public class MultiModelPortletTest {
     public final void testgetAppIDWithCorrectValue() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
-        Mockito.when(con.getResponseCode()).thenReturn(200);
+        final int CODE1 = 200;
+        Mockito.when(con.getResponseCode()).thenReturn(CODE1);
         multiModelPortlet.getAppID("kepler-batch");
     }
     
