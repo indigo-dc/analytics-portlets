@@ -19,6 +19,6 @@
  **********************************************************************
  */
 /**
- * Package for the output recovery.
+ * Package containing the portlet.
  */
-package it.cmcc.indigo.dataanalytics.portlet.action;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet;

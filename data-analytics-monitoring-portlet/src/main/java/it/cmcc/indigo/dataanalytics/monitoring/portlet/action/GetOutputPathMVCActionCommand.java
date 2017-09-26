@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics.portlet.action;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet.action;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

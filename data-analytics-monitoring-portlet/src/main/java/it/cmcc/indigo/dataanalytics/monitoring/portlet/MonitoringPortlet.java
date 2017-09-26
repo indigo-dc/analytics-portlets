@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics.portlet;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet;
 
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 

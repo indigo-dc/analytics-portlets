@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics.portlet.action;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet.action;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -32,6 +32,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.liferay.portal.kernel.util.ParamUtil;
+
+import it.cmcc.indigo.dataanalytics.monitoring.portlet.action.GetOutputPathMVCActionCommand;
 
 /**
  * Main class for GetOutputPathMVCActionCommand action.

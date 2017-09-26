@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics.portlet;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet;
 
 import java.io.IOException;
 
@@ -33,6 +33,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import it.cmcc.indigo.dataanalytics.monitoring.portlet.MonitoringPortlet;
 
 /**
  * Main class for MonitoringPortlet test.
@@ -64,7 +66,7 @@ public class MonitoringPortletTest {
      */
     @Before
     public final void setUp() throws Exception {
-        Mockito.when(request.getParameter("token")).thenReturn("token");
+//        Mockito.when(request.getParameter("token")).thenReturn("token");
     }
 
     /**
@@ -74,7 +76,7 @@ public class MonitoringPortletTest {
      */
     @Test
     public final void testResourceRequest() throws IOException, PortletException {
-        Mockito.when(request.getParameter("token")).thenReturn(Mockito.anyString());
+    	Mockito.when(request.getParameter("token")).thenReturn("token");
         mp = new MonitoringPortlet();
         mp.serveResource(request, response);
     }
