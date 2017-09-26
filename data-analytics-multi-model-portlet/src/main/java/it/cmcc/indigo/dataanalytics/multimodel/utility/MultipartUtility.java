@@ -1,4 +1,4 @@
-package it.cmcc.indigo.utility;
+package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
 import java.io.BufferedReader;
 

@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.utility;
+package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
 import org.junit.Before;
 import org.junit.Test;

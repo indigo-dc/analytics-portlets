@@ -19,18 +19,12 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics;
+package it.cmcc.indigo.dataanalytics.multimodel.portlet;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.nio.file.Path;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletRequest;
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,11 +33,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.Portal;
-
-import it.cmcc.indigo.dataanalytics.portlet.MultiModelPortlet;
-import it.cmcc.indigo.utility.MultipartUtility;
+import it.cmcc.indigo.dataanalytics.multimodel.portlet.MultiModelPortlet;
 
 /**
  * Main class for multi-model submission portlet test.
@@ -61,8 +51,7 @@ public class MultiModelPortletTest {
      * Fake response for submitExperiment method.
      */
     @Mock
-    private ActionResponse response;
-    
+    private ActionResponse response; 
     
     /**
      * Prepare the environment.
@@ -73,7 +62,7 @@ public class MultiModelPortletTest {
         
     }
     
-     /**
+    /**
      * Test the portlet.
      * @throws Exception in case of problem
      */
@@ -93,8 +82,7 @@ public class MultiModelPortletTest {
         Mockito.when(request.getParameter("lonmax")).thenReturn("lonmax");
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
-        multiModelPortlet.submitExperiment(request, response);
-                        
+        multiModelPortlet.submitExperiment(request, response);                       
     }
     
     @Test
@@ -114,7 +102,7 @@ public class MultiModelPortletTest {
         multiModelPortlet.getAppID("kepler-batch");
     }
     
-    @Test
+/*    @Test
     public final void testNewFGTask() throws Exception {
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -125,17 +113,19 @@ public class MultiModelPortletTest {
         Mockito.when(con2.getInputStream()).thenReturn(in);  
         
         multiModelPortlet.newFGTask(3);
-    }
+    }*/
     
-   @Test
+/*   @Test
     public final void testCreateParametersFile() throws Exception {
        
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
         
         multiModelPortlet.createParametersFile(300, tmpPath);    
-    }
+    }*/
     
+   
+/*    //non viene testato
     @Test(expected=Exception.class)
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -148,6 +138,6 @@ public class MultiModelPortletTest {
         Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile1);
             
         multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }
+    }*/
     
 }

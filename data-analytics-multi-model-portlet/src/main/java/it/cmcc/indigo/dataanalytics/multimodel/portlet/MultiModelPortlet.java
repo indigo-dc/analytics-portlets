@@ -19,7 +19,7 @@
  **********************************************************************
  */
 
-package it.cmcc.indigo.dataanalytics.portlet;
+package it.cmcc.indigo.dataanalytics.multimodel.portlet;
 
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
@@ -28,7 +28,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.util.ParamUtil;
 
-import it.cmcc.indigo.utility.MultipartUtility;
+import it.cmcc.indigo.dataanalytics.multimodel.utility.MultipartUtility;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;

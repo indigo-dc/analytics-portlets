@@ -19,6 +19,7 @@
  **********************************************************************
  */
 /**
- * Package containing utility classes.
+ * Package containing the portlet.
  */
-package it.cmcc.indigo.utility;
+
+package it.cmcc.indigo.dataanalytics.multimodel.portlet;
