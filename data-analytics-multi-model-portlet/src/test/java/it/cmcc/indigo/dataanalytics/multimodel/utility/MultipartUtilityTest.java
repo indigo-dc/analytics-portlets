@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLConnection;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -49,8 +48,7 @@ public class MultipartUtilityTest {
      */
     @Test
     public final void testMultipartUtility() throws IOException {
-        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
-        
+        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token");       
     }
     
 /*    @Test
@@ -64,13 +62,7 @@ public class MultipartUtilityTest {
     @Test
     public void testAddFilePart() throws IOException {
         MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
-        
-        //File uploadFile = Mockito.mock(File.class);
         File uploadFile = folder.newFile("fileName.txt");
-        
-        //Mockito.when(uploadFile.getName()).thenReturn("filename");
-        //Mockito.when(URLConnection.guessContentTypeFromName(uploadFile.getName())).thenReturn("Content-Type");
-        Mockito.mock(FileInputStream.class);
         
         multipart.addFilePart("fieldName", uploadFile);
     }

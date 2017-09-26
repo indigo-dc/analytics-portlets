@@ -30,7 +30,9 @@ import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -133,18 +135,16 @@ public class MultiModelPortletTest {
         multiModelPortlet.createParametersFile(300, tmpPath);    
     }
     
-    @Test(expected=Exception.class)
+    @Rule
+    public TemporaryFolder folder= new TemporaryFolder();
+    
+    @Test
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
-        File uploadFile1 = Mockito.mock(File.class);
-        File uploadFile2 = Mockito.mock(File.class);
-        MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
         
-        //Mockito.doThrow().when(multipart).addFilePart("file[]", uploadFile1);
-        
-        Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile1);
+        File uploadFile1 = folder.newFile("fileName1.txt");
+        File uploadFile2 = folder.newFile("fileName2.txt");
             
         multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }
-    
+    }   
 }
