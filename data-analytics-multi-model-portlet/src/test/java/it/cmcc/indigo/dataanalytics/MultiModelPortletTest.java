@@ -97,14 +97,21 @@ public class MultiModelPortletTest {
                         
     }
     
-/*    @Test
-    public final void testgetAppID() throws Exception {
-        multiModelPortlet = new MultiModelPortlet();
-
-        Mockito.when(multiModelPortlet.getAppID("kepler-batch")).thenReturn(Mockito.anyInt());
-        
-        //assertEquals(multiModelPortlet.getAppID("kepler-batch"), 201);
-    }*/
+    @Test
+    public final void testgetAppIDWithCorrectValue() throws Exception {
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
+        HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
+        Mockito.when(con.getResponseCode()).thenReturn(200);
+        multiModelPortlet.getAppID("kepler-batch");
+    }
+    
+    @Test
+    public final void testgetAppIDWithIncorrectValue() throws Exception {
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
+        HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
+        Mockito.when(con.getResponseCode()).thenReturn(500);
+        multiModelPortlet.getAppID("kepler-batch");
+    }
     
     @Test
     public final void testNewFGTask() throws Exception {
@@ -135,7 +142,7 @@ public class MultiModelPortletTest {
         File uploadFile2 = Mockito.mock(File.class);
         MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
         
-        //Mockito.doNothing().when(multipart).addFilePart("file[]", uploadFile1);
+        //Mockito.doThrow().when(multipart).addFilePart("file[]", uploadFile1);
         
         Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile1);
             
