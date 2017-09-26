@@ -86,10 +86,10 @@ public class MultiModelPortletTest {
         Mockito.when(request.getParameter("lonmax")).thenReturn("lonmax");
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
-        File uploadFile = Mockito.mock(File.class);
+/*        File uploadFile = Mockito.mock(File.class);
         MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
         Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile);
-        Mockito.when(uploadFile.getName()).thenReturn("uploadFile");
+        Mockito.when(uploadFile.getName()).thenReturn("uploadFile");*/
         
         multiModelPortlet.submitExperiment(request, response);                       
     }
