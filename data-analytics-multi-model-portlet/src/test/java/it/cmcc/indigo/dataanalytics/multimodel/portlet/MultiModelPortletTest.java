@@ -22,6 +22,7 @@
 package it.cmcc.indigo.dataanalytics.multimodel.portlet;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Path;
@@ -37,6 +38,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.liferay.portal.kernel.json.JSONException;
 
 import it.cmcc.indigo.dataanalytics.multimodel.portlet.MultiModelPortlet;
 import it.cmcc.indigo.dataanalytics.multimodel.utility.MultipartUtility;
@@ -127,7 +130,7 @@ public class MultiModelPortletTest {
     }
     
     @Test
-    public final void testCreateParametersFile() throws Exception {
+    public final void testCreateParametersFile() throws IOException, JSONException {
        
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
