@@ -21,6 +21,8 @@
 
 package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,6 @@ public class MultipartUtilityTest {
     
     @Before
     public final void setUp() throws Exception {
-        //Mockito.when(request.getEvent()).thenReturn(event);
     }  
 
     /**
@@ -40,8 +41,9 @@ public class MultipartUtilityTest {
      * @throws Exception in case of problem
      */
     @Test
-    public final void testGetPath() throws Exception {
-        //Mockito.when(event.getValue()).thenReturn("url|token");
+    public final void testMultipartUtility() throws IOException {
+        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token");
+ 
     }
 
 }

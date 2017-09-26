@@ -22,7 +22,9 @@
 package it.cmcc.indigo.dataanalytics.multimodel.portlet;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.nio.file.Path;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -92,7 +94,7 @@ public class MultiModelPortletTest {
         multiModelPortlet.submitExperiment(request, response);                       
     }
     
-/*    @Test
+    @Test
     public final void testgetAppIDWithCorrectValue() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
@@ -107,9 +109,9 @@ public class MultiModelPortletTest {
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
         Mockito.when(con.getResponseCode()).thenReturn(500);
         multiModelPortlet.getAppID("kepler-batch");
-    }*/
+    }
     
-/*    @Test
+    @Test
     public final void testNewFGTask() throws Exception {
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -120,19 +122,19 @@ public class MultiModelPortletTest {
         Mockito.when(con2.getInputStream()).thenReturn(in);  
         
         multiModelPortlet.newFGTask(3);
-    }*/
+    }
     
-/*   @Test
+    @Test
     public final void testCreateParametersFile() throws Exception {
        
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
         
         multiModelPortlet.createParametersFile(300, tmpPath);    
-    }*/
+    }
     
    
-/*    //non viene testato
+    //non viene testato
     @Test(expected=Exception.class)
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -145,6 +147,6 @@ public class MultiModelPortletTest {
         Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile1);
             
         multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }*/
+    }
     
 }
