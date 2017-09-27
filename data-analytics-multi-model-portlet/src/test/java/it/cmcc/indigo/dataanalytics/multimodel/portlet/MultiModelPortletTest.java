@@ -103,7 +103,7 @@ public class MultiModelPortletTest {
         Mockito.when(request.getParameter("lonmin")).thenReturn("lonmin");
         Mockito.when(request.getParameter("lonmax")).thenReturn("lonmax");
         
-        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
+        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/applications";
         HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
         InputStream is = new ByteArrayInputStream("tasks: [test data]".getBytes());
