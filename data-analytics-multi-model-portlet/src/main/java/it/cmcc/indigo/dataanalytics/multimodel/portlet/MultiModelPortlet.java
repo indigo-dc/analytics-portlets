@@ -142,7 +142,7 @@ public class MultiModelPortlet extends MVCPortlet {
         int idapp = getAppID("kepler-batch");
         int idtask = -1;
 
-        if (idapp != -1) {
+        //if (idapp != -1) {
             // new FG task creation
             idtask = newFGTask(idapp);
 
@@ -160,9 +160,9 @@ public class MultiModelPortlet extends MVCPortlet {
             File uploadFile2 = new File("/home/futuregateway/FutureGateway/"
                 + "fgAPIServer/apps/kepler-batch/tosca_template.yaml");
             sendTaskInputFile(idtask, uploadFile1, uploadFile2);
-        } else {
+/*        } else {
             System.out.println("Application is not present in the database!");
-        }
+        }*/
     }
 
     /** First step: get application ID
