@@ -21,13 +21,21 @@
 
 package it.cmcc.indigo.dataanalytics.monitoring.portlet;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandlerFactory;
 
 import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -35,6 +43,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import it.cmcc.indigo.dataanalytics.monitoring.portlet.MonitoringPortlet;
+import it.cmcc.indigo.dataanalytics.monitoring.portlet.action.HttpUrlStreamHandler;
 
 /**
  * Main class for MonitoringPortlet test.
@@ -46,38 +55,65 @@ public class MonitoringPortletTest {
      * Fake request for serveResource method.
      */
     @Mock
-    private ResourceRequest request;
+    private ResourceRequest resourceRequest;
 
     /**
      * Fake response for serveResource method.
      */
     @Mock
-    private ResourceResponse response;
+    private ResourceResponse resourceResponse;
 
-    /**
-     * Fake portlet class for serveResource method.
-     */
-    @Mock
-    private MonitoringPortlet mp;
-
+    private static HttpUrlStreamHandler httpUrlStreamHandler;
+    
+    @BeforeClass
+    public static void setupURLStreamHandlerFactory() {
+        // Allows for mocking URL connections
+        URLStreamHandlerFactory urlStreamHandlerFactory = Mockito.mock(URLStreamHandlerFactory.class);
+        URL.setURLStreamHandlerFactory(urlStreamHandlerFactory);
+     
+        httpUrlStreamHandler = new HttpUrlStreamHandler();
+        Mockito.when(urlStreamHandlerFactory.createURLStreamHandler("https")).thenReturn(httpUrlStreamHandler);
+    }
+    
+    @Before
+    public void reset() {
+        httpUrlStreamHandler.resetConnections();
+    }
+    
     /**
      * Prepare the environment.
      * @throws Exception In case of a problem to replicate Liferay context.
      */
-    @Before
-    public final void setUp() throws Exception {
+//    @Before
+//    public final void setUp() throws Exception {
+//        this.obj = Mockito.mock(URL.class);
+//    	this.obj = new URL("http://www.google.it");
+//        this.connection = Mockito.mock(HttpURLConnection.class);
+        
+//        this.inputstream = new ByteArrayInputStream("test data".getBytes());
 //        Mockito.when(request.getParameter("token")).thenReturn("token");
-    }
+//    }
 
     /**
      * Test the portlet.
+     * @throws IOException 
      * @throws PortletException 
      * @throws Exception In case of problem
      */
     @Test
-    public final void testResourceRequest() throws IOException, PortletException {
-    	Mockito.when(request.getParameter("token")).thenReturn("token");
-        mp = new MonitoringPortlet();
-        mp.serveResource(request, response);
+    public final void testServeResource() throws IOException, PortletException {
+    	Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
+    	
+    	String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
+    	HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
+        httpUrlStreamHandler.addConnection(new URL(href), con);
+        InputStream is = new ByteArrayInputStream("tasks: [test data]".getBytes());
+        Mockito.when(con.getInputStream()).thenReturn(is);
+        
+        PrintWriter pw = Mockito.mock(PrintWriter.class);
+        Mockito.when(resourceResponse.getWriter()).thenReturn(pw);
+
+    	MonitoringPortlet mp = new MonitoringPortlet();
+        mp.serveResource(resourceRequest, resourceResponse);
     }
 }

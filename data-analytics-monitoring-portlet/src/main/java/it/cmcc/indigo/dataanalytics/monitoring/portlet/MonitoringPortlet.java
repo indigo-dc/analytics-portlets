@@ -60,6 +60,8 @@ public class MonitoringPortlet extends MVCPortlet {
      * The reference to the token.
      */
     private String token = null;
+//    private static final int code1 = 200;
+//    private static final int code2 = 201;
 
     @Override
     public final void serveResource(final ResourceRequest resourceRequest,
@@ -77,9 +79,7 @@ public class MonitoringPortlet extends MVCPortlet {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
 
-        final int code1 = 200;
-        final int code2 = 201;
-        if (responseCode == code1 || responseCode == code2) {
+//        if (responseCode == code1 || responseCode == code2) {
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -94,9 +94,9 @@ public class MonitoringPortlet extends MVCPortlet {
             jsonResponse = jsonResponse.substring(index);
             jsonResponse = jsonResponse.substring(0, jsonResponse.length() - 1);
             resourceResponse.getWriter().write(jsonResponse);
-        } else {
-            System.out.println("Unable to connect to the URL "
-                + obj.toString());
-        }
+//        } else {
+//            System.out.println("Unable to connect to the URL "
+//                + obj.toString());
+//        }
     }
 }

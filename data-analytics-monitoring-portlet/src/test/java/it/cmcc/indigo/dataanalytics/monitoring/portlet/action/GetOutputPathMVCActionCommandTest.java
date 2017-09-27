@@ -67,7 +67,7 @@ public class GetOutputPathMVCActionCommandTest {
      * @throws Exception In case of problem
      */
     @Test
-    public final void testResourceRequest() throws Exception {
+    public final void testDoProcessAction() throws Exception {
         Mockito.when(ParamUtil.getString(actionRequest, "token")).thenReturn(Mockito.anyString());
         GetOutputPathMVCActionCommand action = new GetOutputPathMVCActionCommand();
         action.doProcessAction(actionRequest, actionResponse);
