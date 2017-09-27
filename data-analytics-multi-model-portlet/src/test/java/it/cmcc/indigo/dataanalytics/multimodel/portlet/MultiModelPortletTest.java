@@ -98,22 +98,22 @@ public class MultiModelPortletTest {
         multiModelPortlet.submitExperiment(request, response);                       
     }
     
-    @Test
-    public final void testgetAppIDWithCorrectValue() throws Exception {
+/*    @Test
+    public final void testgetAppID() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
         final int CODE1 = 200;
         Mockito.when(con.getResponseCode()).thenReturn(CODE1);
         multiModelPortlet.getAppID("kepler-batch");
-    }
+    }*/
     
-    @Test
+/*    @Test
     public final void testgetAppIDWithIncorrectValue() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
         Mockito.when(con.getResponseCode()).thenReturn(500);
         multiModelPortlet.getAppID("kepler-batch");
-    }
+    }*/
     
     @Test
     public final void testNewFGTask() throws Exception {
