@@ -46,6 +46,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
+
 import it.cmcc.indigo.dataanalytics.multimodel.portlet.MultiModelPortlet;
 import it.cmcc.indigo.dataanalytics.multimodel.utility.HttpUrlStreamHandler;
 
@@ -67,7 +71,7 @@ public class MultiModelPortletTest {
     @Mock
     private ActionResponse response; 
     
-    private static HttpUrlStreamHandler httpUrlStreamHandler;
+/*    private static HttpUrlStreamHandler httpUrlStreamHandler;
     
     @BeforeClass
     public static void setupURLStreamHandlerFactory() {
@@ -82,7 +86,7 @@ public class MultiModelPortletTest {
     @Before
     public void reset() {
         httpUrlStreamHandler.resetConnections();
-    }
+    }*/
     
     /**
      * Test the portlet.
@@ -103,11 +107,11 @@ public class MultiModelPortletTest {
         Mockito.when(request.getParameter("lonmin")).thenReturn("lonmin");
         Mockito.when(request.getParameter("lonmax")).thenReturn("lonmax");
         
-        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/applications";
+/*        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/applications";
         HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
         InputStream is = new ByteArrayInputStream("tasks: [test data]".getBytes());
-        Mockito.when(con.getInputStream()).thenReturn(is);
+        Mockito.when(con.getInputStream()).thenReturn(is);*/
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         
@@ -118,17 +122,39 @@ public class MultiModelPortletTest {
     public final void testgetAppID() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         
-        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
+        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/applications";
         HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
-        InputStream is = new ByteArrayInputStream("tasks: [test data]".getBytes());
-        Mockito.when(con.getInputStream()).thenReturn(is);
         
+        String json = "{";
+        json += "applications\": [";
+        json += "{";                      
+        json += "\"files\": [],";                  
+        json += "\"infrastructures\": [], ";                       
+        json += "\"_links\": [";
+        json += "{";     
+        json += "\"href\": \"/v1.0/application/0\",";    
+        json += "\"rel\": \"self\"";    
+        json += "}";            
+        json += "],";            
+        json += "\"name\": \"infrastructures\",";        
+        json += "\"parameters\": [],";  
+        json += "\"enabled\": false,";    
+        json += "\"id\": \"0\",";     
+        json += "\"description\": \"unassigned infrastructure\"";     
+        json += "}";
+        json += "]";
+        json += "}";
+        
+        JSONObject myObject = JSONFactoryUtil.createJSONObject(json);
+        
+        Mockito.when(JSONFactoryUtil.createJSONObject(
+                    response.toString())).thenReturn(myObject);
 
         multiModelPortlet.getAppID("kepler-batch");
     }*/
     
-/*    @Test
+/*   @Test
     public final void testgetAppIDWithIncorrectValue() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
         HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
@@ -136,7 +162,7 @@ public class MultiModelPortletTest {
         multiModelPortlet.getAppID("kepler-batch");
     }*/
     
-/*    @Test
+    @Test
     public final void testNewFGTask() throws Exception {
         
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -147,9 +173,9 @@ public class MultiModelPortletTest {
         Mockito.when(con2.getInputStream()).thenReturn(in);  
         
         multiModelPortlet.newFGTask(3);
-    }*/
+    }
     
-/*    @Test
+    @Test
     public final void testCreateParametersFile() {
        
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
@@ -169,5 +195,5 @@ public class MultiModelPortletTest {
         File uploadFile2 = folder.newFile("fileName2.txt");
             
         multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }  */ 
+    } 
 }
