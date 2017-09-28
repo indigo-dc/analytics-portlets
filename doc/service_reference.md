@@ -14,17 +14,17 @@ The ENES analytics portlets needs an external file, in JSON format, to correctly
 
 {
     "models": [{
-        "model": "\<model>",
-        "host": "\<hostname>",
-        "port": "\<port>",
-        "username": "\<username>",
-        "password": "\<password>"
+        "model": "<model>",
+        "host": "<hostname>",
+        "port": "<port>",
+        "username": "<username>",
+        "password": "<password>"
     },{
-        "model": "\<model>",
-        "host": "\<hostname>",
-        "port": "\<port>",
-        "username": "\<username>",
-        "password": "\<password>"
+        "model": "<model>",
+        "host": "<hostname>",
+        "port": "<port>",
+        "username": "<username>",
+        "password": "<password>"
     }]  
 }
   
