@@ -128,17 +128,19 @@ public class MultiModelPortletTest {
         multiModelPortlet.newFGTask(3);
     }
     
+    @Rule
+    public TemporaryFolder folder= new TemporaryFolder();
+    
     @Test
     public final void testCreateParametersFile() throws IOException, JSONException {
        
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
         
+        //File myFile = folder.newFile("myFile.txt");
+        
         multiModelPortlet.createParametersFile(300, tmpPath);    
     }
-    
-    @Rule
-    public TemporaryFolder folder= new TemporaryFolder();
     
     @Test
     public final void testSendTaskInputFile() throws Exception {

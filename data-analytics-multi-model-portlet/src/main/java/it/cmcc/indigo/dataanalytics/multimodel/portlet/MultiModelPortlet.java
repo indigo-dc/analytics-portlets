@@ -180,7 +180,7 @@ public class MultiModelPortlet extends MVCPortlet {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
 
-       // if (responseCode == CODE2 || responseCode == CODE1) {
+        if (responseCode == CODE2 || responseCode == CODE1) {
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -204,10 +204,10 @@ public class MultiModelPortlet extends MVCPortlet {
                 }
             }
             System.out.println("id " + appname + ": " + idapp);
-/*            } else {
+            } else {
                 System.out.println("Unable to connect to the URL "
                     + obj.toString());
-            }*/
+            }
 
         return idapp;
     }
