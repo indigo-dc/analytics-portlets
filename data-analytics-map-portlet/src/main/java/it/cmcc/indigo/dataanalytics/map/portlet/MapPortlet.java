@@ -65,16 +65,12 @@ public class MapPortlet extends MVCPortlet {
     @ProcessEvent(qname = "{http://cloud144.ncg.ingrid.pt}getpath")
     public final void getPath(final EventRequest request,
             final EventResponse response) {
-        System.out.println("consumer!!!");
         Event event = request.getEvent();
-    	String urltoken = (String) event.getValue();
-    	if (urltoken.contains("|")) {
-    		System.out.println("consumer urltoken: " + urltoken);
-            //response.setRenderParameter("urltoken", urltoken);
+        String urltoken = (String) event.getValue();
+        if (urltoken.contains("|")) {
             request.setAttribute("urltoken", urltoken);
-    	} else {
-    		request.setAttribute("urltoken", null);
-    	}
-        
+        } else {
+            request.setAttribute("urltoken", null);
+        }
     }
 }

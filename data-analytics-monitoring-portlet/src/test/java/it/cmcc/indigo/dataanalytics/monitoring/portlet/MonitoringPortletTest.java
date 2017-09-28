@@ -41,8 +41,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import it.cmcc.indigo.dataanalytics.monitoring.portlet.MonitoringPortlet;
-import it.cmcc.indigo.dataanalytics.monitoring.portlet.action.HttpUrlStreamHandler;
+import
+it.cmcc.indigo.dataanalytics.monitoring.portlet.action.HttpUrlStreamHandler;
 
 /**
  * Main class for MonitoringPortlet test.
@@ -62,45 +62,54 @@ public class MonitoringPortletTest {
     @Mock
     private ResourceResponse resourceResponse;
 
+    /**
+     * Fake httpUrlStreamHandler for serveResource method.
+     */
     private static HttpUrlStreamHandler httpUrlStreamHandler;
-    
+
+    /**
+     * Setup of the mocking URL connections.
+     */
     @BeforeClass
     public static void setupURLStreamHandlerFactory() {
         // Allows for mocking URL connections
-        URLStreamHandlerFactory urlStreamHandlerFactory = Mockito.mock(URLStreamHandlerFactory.class);
+        URLStreamHandlerFactory urlStreamHandlerFactory = Mockito
+                .mock(URLStreamHandlerFactory.class);
         URL.setURLStreamHandlerFactory(urlStreamHandlerFactory);
-     
+
         httpUrlStreamHandler = new HttpUrlStreamHandler();
-        Mockito.when(urlStreamHandlerFactory.createURLStreamHandler("https")).thenReturn(httpUrlStreamHandler);
+        Mockito.when(urlStreamHandlerFactory.createURLStreamHandler("https")
+                ).thenReturn(httpUrlStreamHandler);
     }
-    
+
     /**
      * Prepare the environment.
      */
     @Before
-    public void reset() {
+    public final void reset() {
         httpUrlStreamHandler.resetConnections();
     }
-    
+
     /**
      * Test the portlet.
-     * @throws IOException 
-     * @throws PortletException 
+     * @throws IOException On input error
+     * @throws PortletException On portlet generic exception
      */
     @Test
     public final void testServeResource() throws IOException, PortletException {
-    	Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
-    	
-    	String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
-    	HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
+        Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
+
+        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
+        HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
-        InputStream is = new ByteArrayInputStream("tasks: [test data]".getBytes());
+        InputStream is = new ByteArrayInputStream("tasks: [test data]"
+                .getBytes());
         Mockito.when(con.getInputStream()).thenReturn(is);
-        
+
         PrintWriter pw = Mockito.mock(PrintWriter.class);
         Mockito.when(resourceResponse.getWriter()).thenReturn(pw);
 
-    	MonitoringPortlet mp = new MonitoringPortlet();
+        MonitoringPortlet mp = new MonitoringPortlet();
         mp.serveResource(resourceRequest, resourceResponse);
     }
 }

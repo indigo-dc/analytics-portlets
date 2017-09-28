@@ -69,10 +69,8 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
     @Override
     protected final void doProcessAction(final ActionRequest actionRequest,
         final ActionResponse actionResponse) throws Exception {
-        System.out.println("action!!!");
         token = ParamUtil.getString(actionRequest, "token");
         taskid = ParamUtil.getInteger(actionRequest, "taskid");
-        System.out.println("taskid: " + taskid);
 
         URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/"
             + taskid);
@@ -85,9 +83,10 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
 
         final int code1 = 200;
         final int code2 = 201;
+
         if (responseCode == code1 || responseCode == code2) {
             BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
+                    new InputStreamReader(con.getInputStream()));
             String inputLine;
             StringBuffer response = new StringBuffer();
 
@@ -99,26 +98,19 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
             JSONObject myObject;
             try {
                 myObject = JSONFactoryUtil.createJSONObject(
-                		response.toString());
+                    response.toString());
                 String status = myObject.getString("status");
                 if (status.equals("DONE")) {
                     JSONArray myArray = myObject.getJSONArray("output_files");
                     if (myArray.length() != 0) {
                         JSONObject fileobj = myArray.getJSONObject(0);
-                        String filename = fileobj.getString("name");
-//                        if (filename.contains(".png")) {
-                            String completeurl = fileobj.getString("url");
-                            int index = completeurl.indexOf("&");
-                            String url = completeurl.substring(0, index);
+                        String completeurl = fileobj.getString("url");
+                        int index = completeurl.indexOf("&");
+                        String url = completeurl.substring(0, index);
 
-                            QName qName = new QName(
-                                "http://cloud144.ncg.ingrid.pt",
-                                "getpath");
-                            actionResponse.setEvent(qName, url + "|" + token);
-                            System.out.println("finished.");
-//                        } else {
-//                            System.out.println("Output png files not found");
-//                        }
+                        QName qName = new QName(
+                            "http://cloud144.ncg.ingrid.pt", "getpath");
+                        actionResponse.setEvent(qName, url + "|" + token);
                     } else {
                         System.out.println("Output files not found");
                     }
@@ -131,7 +123,7 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
             }
         } else {
             System.out.println("Unable to connect to the URL "
-            + obj.toString());
+                + obj.toString());
         }
     }
 }

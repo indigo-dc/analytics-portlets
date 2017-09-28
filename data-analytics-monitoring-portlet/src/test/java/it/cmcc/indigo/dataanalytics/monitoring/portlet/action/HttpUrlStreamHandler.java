@@ -8,23 +8,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link URLStreamHandler} that allows us to control the {@link URLConnection URLConnections} that are returned
- * by {@link URL URLs} in the code under test.
+ * {@link URLStreamHandler} that allows us to control the {@link URLConnection
+ * URLConnections} that are returned by {@link URL URLs} in the code under
+ * test.
  */
 public class HttpUrlStreamHandler extends URLStreamHandler {
- 
+
+    /**
+     * Map reference between URL and HttpURLConnection.
+     */
     private Map<URL, HttpURLConnection> connections = new HashMap();
- 
+
+    /**
+     * openConnection method.
+     */
     @Override
-    protected HttpURLConnection openConnection(URL url) throws IOException {
+    protected final HttpURLConnection openConnection(final URL url)
+            throws IOException {
         return connections.get(url);
     }
- 
-    public void resetConnections() {
+
+    /**
+     * resetConnection method.
+     */
+    public final void resetConnections() {
         connections = new HashMap();
     }
- 
-    public HttpUrlStreamHandler addConnection(URL url, HttpURLConnection urlConnection) {
+
+    /**
+     * addConnection method.
+     * @param url The URL of the connection
+     * @param urlConnection The HttpURLConnection
+     * @return HttpUrlStreamHandler
+     */
+    public final HttpUrlStreamHandler addConnection(final URL url,
+            final HttpURLConnection urlConnection) {
         connections.put(url, urlConnection);
         return this;
     }

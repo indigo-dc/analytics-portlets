@@ -32,8 +32,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import it.cmcc.indigo.dataanalytics.map.portlet.MapPortlet;
-
 /**
  * Main class for MapPortlet test.
  */
@@ -83,15 +81,15 @@ public class MapPortletTest {
         map = new MapPortlet();
         map.getPath(request, response);
     }
-    
+
     /**
      * Test the portlet.
      * @throws Exception In case of problem
      */
     @Test
     public final void testGetPathWithIncorrectValue() {
-    	Mockito.when(event.getValue()).thenReturn("urltoken");
-    	map = new MapPortlet();
+        Mockito.when(event.getValue()).thenReturn("urltoken");
+        map = new MapPortlet();
         map.getPath(request, response);
     }
 }

@@ -60,8 +60,6 @@ public class MonitoringPortlet extends MVCPortlet {
      * The reference to the token.
      */
     private String token = null;
-//    private static final int code1 = 200;
-//    private static final int code2 = 201;
 
     @Override
     public final void serveResource(final ResourceRequest resourceRequest,
@@ -70,7 +68,6 @@ public class MonitoringPortlet extends MVCPortlet {
 
         token = resourceRequest.getParameter("token");
 
-//      URL obj = new URL("http://cloud144.ncg.ingrid.pt/apis/v1.0/tasks");
         URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks");
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -79,24 +76,19 @@ public class MonitoringPortlet extends MVCPortlet {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
 
-//        if (responseCode == code1 || responseCode == code2) {
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+        BufferedReader in = new BufferedReader(
+            new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            String jsonResponse = response.toString();
-            int index = jsonResponse.indexOf("[");
-            jsonResponse = jsonResponse.substring(index);
-            jsonResponse = jsonResponse.substring(0, jsonResponse.length() - 1);
-            resourceResponse.getWriter().write(jsonResponse);
-//        } else {
-//            System.out.println("Unable to connect to the URL "
-//                + obj.toString());
-//        }
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        String jsonResponse = response.toString();
+        int index = jsonResponse.indexOf("[");
+        jsonResponse = jsonResponse.substring(index);
+        jsonResponse = jsonResponse.substring(0, jsonResponse.length() - 1);
+        resourceResponse.getWriter().write(jsonResponse);
     }
 }
