@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLStreamHandlerFactory;
 
 import javax.portlet.PortletException;
@@ -75,30 +74,18 @@ public class MonitoringPortletTest {
         Mockito.when(urlStreamHandlerFactory.createURLStreamHandler("https")).thenReturn(httpUrlStreamHandler);
     }
     
+    /**
+     * Prepare the environment.
+     */
     @Before
     public void reset() {
         httpUrlStreamHandler.resetConnections();
     }
     
     /**
-     * Prepare the environment.
-     * @throws Exception In case of a problem to replicate Liferay context.
-     */
-//    @Before
-//    public final void setUp() throws Exception {
-//        this.obj = Mockito.mock(URL.class);
-//    	this.obj = new URL("http://www.google.it");
-//        this.connection = Mockito.mock(HttpURLConnection.class);
-        
-//        this.inputstream = new ByteArrayInputStream("test data".getBytes());
-//        Mockito.when(request.getParameter("token")).thenReturn("token");
-//    }
-
-    /**
      * Test the portlet.
      * @throws IOException 
      * @throws PortletException 
-     * @throws Exception In case of problem
      */
     @Test
     public final void testServeResource() throws IOException, PortletException {
