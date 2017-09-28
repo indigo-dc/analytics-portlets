@@ -2,7 +2,7 @@
 
 **Functional description:**
 
-  Provide the possibility to execute an intercomparison between models through a first portlet providing a form to select the input parameters and the submission and other two portlets to visualize the corresponding map and the nc-dump file.
+Provide the possibility to execute an intercomparison between models through a first portlet providing a form to select the input parameters, a module to monitor the experiments submitted and the visualisation portlets to visualize the corresponding map files.
 
 **Services running:**
 
@@ -10,7 +10,23 @@
   
 **Configuration:**
  
-  The modules add new panels to the Liferay portal providing the possibility to select a series of input parameters and submit a models intercomparison experiment over the INDIGO-Data Cloud infrastructure. Other two modules will get the results of the submission and visualize the produced map and the related nc-dump file.
+The ENES analytics portlets needs an external file, in JSON format, to correctly map the different climate models with the related data centers. The file models-mapping.json should be provided and should be similar to the example below. 
+
+{
+    "models": [{
+        "model": "\<model>",
+        "host": "\<hostname>",
+        "port": "\<port>",
+        "username": "\<username>",
+        "password": "\<password>"
+    },{
+        "model": "\<model>",
+        "host": "\<hostname>",
+        "port": "\<port>",
+        "username": "\<username>",
+        "password": "\<password>"
+    }]  
+}
   
 **Logfile locations (and management) and other useful audit information:**
 
