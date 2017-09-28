@@ -23,20 +23,48 @@ import java.util.List;
  *
  */
 public class MultipartUtility {
+    /**
+    * Reference to the boundary.
+    */
     private final String boundary;
+
+    /**
+    * Reference to the tLINE_FEED.
+    */
     private static final String LINE_FEED = "\r\n";
+
+    /**
+    * Reference to the HTTP connection.
+    */
     private HttpURLConnection httpConn;
+
+    /**
+    * Reference to the charset.
+    */
     private String charset;
+
+    /**
+    * Reference to the outputStream.
+    */
     private OutputStream outputStream;
+
+    /**
+    * Reference to the writer.
+    */
     private PrintWriter writer;
+
+    /**
+    * Reference to the BUFFER_SIZE.
+    */
     private static final int BUFFER_SIZE = 4096;
 
     /**
-     * This constructor initializes a new HTTP POST request with content type
+     * This constructor initializes a new HTTP POST request with content type.
      * is set to multipart/form-data
-     * @param requestURL
-     * @param charset
-     * @throws IOException
+     * @param requestURL The request URL
+     * @param charSet The charset
+     * @param token The token of the session
+     * @throws IOException on input error
      */
     public MultipartUtility(final String requestURL,
             final String charSet, final String token)
@@ -60,10 +88,10 @@ public class MultipartUtility {
     }
 
     /**
-     * Adds a upload file section to the request
+     * Adds a upload file section to the request.
      * @param fieldName name attribute in <input type="file" name="..." />
      * @param uploadFile a File to be uploaded
-     * @throws IOException
+     * @throws IOException on input error
      */
     public final void addFilePart(final String fieldName, final File uploadFile)
             throws IOException {
@@ -97,7 +125,7 @@ public class MultipartUtility {
      * Completes the request and receives response from the server.
      * @return a list of Strings as response in case the server returned
      * status OK, otherwise an exception is thrown.
-     * @throws IOException
+     * @throws IOException on input error
      */
     public final List<String> finish() throws IOException {
         try {
@@ -123,7 +151,12 @@ public class MultipartUtility {
                 httpConn.disconnect();
         }
     }
-
+    /**
+     * Reads the response of the Future Gateway.
+     * @param stream Input stream received from the server
+     * @return a list of Strings as response
+     * @throws IOException on input error
+     */
     public final List<String> readResponse(final InputStream stream)
             throws IOException {
         List<String> response = new ArrayList<String>();

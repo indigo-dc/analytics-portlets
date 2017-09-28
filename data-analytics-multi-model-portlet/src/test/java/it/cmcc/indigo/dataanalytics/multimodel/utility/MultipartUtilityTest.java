@@ -26,23 +26,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Utility class for multi-model submission portlet test.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class MultipartUtilityTest {
 
-    @Before
-    public final void setUp() throws Exception {
-    }
-
     /**
      * Test the class.
-     * @throws Exception in case of problem
+     * @throws IOException in case of problem
      */
     @Test
     public final void testMultipartUtility() throws IOException {
@@ -50,9 +48,16 @@ public class MultipartUtilityTest {
             new MultipartUtility("http://www.google.it", "UTF-8", "token");
     }
 
+    /**
+     * Creates a temporary folder.
+     */
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
+    /**
+     * Test the addFilePart method.
+     * @throws IOException in case of problem
+     */
     @Test
     public final void testAddFilePart() throws IOException {
         MultipartUtility multipart =
@@ -62,6 +67,10 @@ public class MultipartUtilityTest {
         multipart.addFilePart("fieldName", uploadFile);
     }
 
+    /**
+     * Test the readResponse method.
+     * @throws IOException in case of problem
+     */
     @Test
     public final void testReadResponse() throws IOException {
         MultipartUtility multipart =

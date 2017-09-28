@@ -108,6 +108,10 @@ public class MultiModelPortletTest {
         multiModelPortlet.submitExperiment(request, response);
     }
 
+    /**
+     * Test the newFGTask method.
+     * @throws Exception in case of problem
+     */
     @Test
     public final void testNewFGTask() throws Exception {
 
@@ -124,9 +128,17 @@ public class MultiModelPortletTest {
         multiModelPortlet.newFGTask(code2);
     }
 
+    /**
+     * Creates a temporary folder.
+     */
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
+    /**
+     * Test the createParametersFile method.
+     * @throws IOException on input error
+     * @throws JSONException on JSON error
+     */
     @Test
     public final void testCreateParametersFile()
             throws IOException, JSONException {
@@ -139,6 +151,10 @@ public class MultiModelPortletTest {
         multiModelPortlet.createParametersFile(code, tmpPath);
     }
 
+    /**
+     * Test the sendTaskInputFile method.
+     * @throws Exception on generic error
+     */
     @Test
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();

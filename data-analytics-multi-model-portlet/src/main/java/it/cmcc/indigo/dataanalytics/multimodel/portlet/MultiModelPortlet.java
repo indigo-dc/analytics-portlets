@@ -69,25 +69,97 @@ import org.osgi.service.component.annotations.Component;
 
 public class MultiModelPortlet extends MVCPortlet {
 
+    /**
+    * Reference to the Future Gateway Url.
+    */
     private String fgURL = "https://fgw01.ncg.ingrid.pt/apis";
+
+    /**
+    * Reference to the token.
+    */
     private String token = null;
+
+    /**
+    * Reference to the string of models coming from the view.
+    */
     private String modelsString = null;
+
+    /**
+    * Reference to the array of models.
+    */
     private String[] models = null;
+
+    /**
+    * Reference to the scenario.
+    */
     private String scenario = null;
+
+    /**
+    * Reference to the time frequency.
+    */
     private String timeFrequency = null;
+
+    /**
+    * Reference to the percentile.
+    */
     private String percentile = null;
+
+    /**
+    * Reference to the historical time min.
+    */
     private String historicalTimeMin = null;
+
+    /**
+    * Reference to the historical time max.
+    */
     private String historicalTimeMax = null;
+
+    /**
+    * Reference to the scenario time min.
+    */
     private String scenarioTimeMin = null;
+
+    /**
+    * Reference to the scenario time max.
+    */
     private String scenarioTimeMax = null;
+
+    /**
+    * Reference to the minimum latitude.
+    */
     private String latmin = null;
+
+    /**
+    * Reference to the maximum latitude.
+    */
     private String latmax = null;
+
+    /**
+    * Reference to the minimum longitude.
+    */
     private String lonmin = null;
+
+    /**
+    * Reference to the maximum latitude.
+    */
     private String lonmax = null;
 
+    /**
+    * Reference to the first response code.
+    */
     private static final int CODE1 = 200;
+
+    /**
+    * Reference to the second response code.
+    */
     private static final int CODE2 = 201;
 
+    /**
+    * Submit experiment method.
+    * @param request The request of the method
+    * @param response The response of the method
+    * @throws JSONException on JSON error
+    * @throws IOException on input error **/
     public final void submitExperiment(final ActionRequest request,
             final ActionResponse response)
                 throws JSONException, IOException {
@@ -129,9 +201,11 @@ public class MultiModelPortlet extends MVCPortlet {
         sendTaskInputFile(idtask, uploadFile1, uploadFile2);
     }
 
-    /** First step: get application ID
-     * @throws IOException
-     * @throws JSONException **/
+    /** First step: get application ID.
+     * @param appname The name of the application
+     * @return id application
+     * @throws IOException on input error
+     * @throws JSONException on JSON error**/
     public final int getAppID(final String appname)
             throws IOException, JSONException {
         int idapp = -1;
@@ -176,9 +250,11 @@ public class MultiModelPortlet extends MVCPortlet {
         return idapp;
     }
 
-    /** Second step: set a new Future Gateway task
-    * @throws IOException
-    * @throws JSONException **/
+    /** Second step: set a new Future Gateway task.
+    * @param idapp The id of the application
+    * @return idtask The id of the task
+    * @throws IOException on input error
+    * @throws JSONException on JSON error **/
     public final int newFGTask(final int idapp) throws IOException,
             JSONException {
         URL obj2 = new URL(fgURL + "/v1.0/tasks");
@@ -226,6 +302,11 @@ public class MultiModelPortlet extends MVCPortlet {
         return idtask;
     }
 
+    /** Third step: create parameters file.
+    * @param taskid The id of the task
+    * @param tmpPath The path of the file
+    * @return file The file with parameters
+    **/
     public final File createParametersFile(final int taskid,
             final Path tmpPath) {
         File file = null;
@@ -332,6 +413,12 @@ public class MultiModelPortlet extends MVCPortlet {
         return file;
     }
 
+    /** Last step: send task input file to Future Gateway.
+    * @param idtask The id of the task
+    * @param uploadFile1 First file to upload
+    * @param uploadFile2 Second file to upload
+    * @throws IOException on input error
+    **/
     public final void sendTaskInputFile(final int idtask,
             final File uploadFile1,
             final File uploadFile2) throws IOException {
