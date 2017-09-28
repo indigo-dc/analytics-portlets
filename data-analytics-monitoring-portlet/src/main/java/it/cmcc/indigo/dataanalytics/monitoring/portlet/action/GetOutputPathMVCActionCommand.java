@@ -99,14 +99,14 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
             JSONObject myObject;
             try {
                 myObject = JSONFactoryUtil.createJSONObject(
-                    response.toString());
+                		response.toString());
                 String status = myObject.getString("status");
                 if (status.equals("DONE")) {
                     JSONArray myArray = myObject.getJSONArray("output_files");
                     if (myArray.length() != 0) {
                         JSONObject fileobj = myArray.getJSONObject(0);
                         String filename = fileobj.getString("name");
-                        if (filename.contains(".png")) {
+//                        if (filename.contains(".png")) {
                             String completeurl = fileobj.getString("url");
                             int index = completeurl.indexOf("&");
                             String url = completeurl.substring(0, index);
@@ -116,9 +116,9 @@ public class GetOutputPathMVCActionCommand extends BaseMVCActionCommand {
                                 "getpath");
                             actionResponse.setEvent(qName, url + "|" + token);
                             System.out.println("finished.");
-                        } else {
-                            System.out.println("Output png files not found");
-                        }
+//                        } else {
+//                            System.out.println("Output png files not found");
+//                        }
                     } else {
                         System.out.println("Output files not found");
                     }
