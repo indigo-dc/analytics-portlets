@@ -90,19 +90,8 @@ public class MultipartUtility {
         outputStream.flush();
         inputStream.close();
 
-//        writer.append(LINE_FEED);
         writer.flush();
     }
-
-/*    *//**
-     * Adds a header field to the request.
-     * @param name - name of the header field
-     * @param value - value of the header field
-     *//*
-    public final void addHeaderField(final String name, final String value) {
-        writer.append(name + ": " + value).append(LINE_FEED);
-        writer.flush();
-    }*/
 
     /**
      * Completes the request and receives response from the server.
@@ -135,10 +124,11 @@ public class MultipartUtility {
         }
     }
 
-    public List<String> readResponse(final InputStream stream)
+    public final List<String> readResponse(final InputStream stream)
             throws IOException {
         List<String> response = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(stream));
         String line = null;
         while ((line = reader.readLine()) != null) {
             response.add(line);

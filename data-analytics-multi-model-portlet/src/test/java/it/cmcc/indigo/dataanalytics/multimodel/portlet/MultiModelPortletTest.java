@@ -41,14 +41,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.liferay.portal.kernel.json.JSONException;
 
-import it.cmcc.indigo.dataanalytics.multimodel.portlet.MultiModelPortlet;
-
 /**
  * Main class for multi-model submission portlet test.
  */
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class MultiModelPortletTest { 
-        
+public class MultiModelPortletTest {
+
      /**
      * Fake request for submitExperiment method.
      */
@@ -59,96 +57,96 @@ public class MultiModelPortletTest {
      * Fake response for submitExperiment method.
      */
     @Mock
-    private ActionResponse response; 
-    
+    private ActionResponse response;
+
     /**
      * Prepare the environment.
      * @throws Exception in case of a problem to replicate Liferay context
      */
     @Before
     public final void setUp() throws Exception {
-        
+
     }
-    
+
     /**
      * Test the portlet.
      * @throws Exception in case of problem
      */
-    @Test(expected=Exception.class)
+    @Test(expected = Exception.class)
     public final void testSubmitExperiment() throws Exception {
-        Mockito.when(request.getParameter("token")).thenReturn("token"); 
-        Mockito.when(request.getParameter("modelsString")).thenReturn("modelsString");
-        Mockito.when(request.getParameter("scenario")).thenReturn("scenario");
-        Mockito.when(request.getParameter("time_frequency")).thenReturn("timeFrequency");
-        Mockito.when(request.getParameter("historical_time_min")).thenReturn("historicalTimeMin");
-        Mockito.when(request.getParameter("historical_time_max")).thenReturn("historicalTimeMax");
-        Mockito.when(request.getParameter("scenario_time_min")).thenReturn("scenarioTimeMin");
-        Mockito.when(request.getParameter("scenario_time_max")).thenReturn("scenarioTimeMax");
-        Mockito.when(request.getParameter("latmin")).thenReturn("latmin");
-        Mockito.when(request.getParameter("latmax")).thenReturn("latmax");
-        Mockito.when(request.getParameter("lonmin")).thenReturn("lonmin");
-        Mockito.when(request.getParameter("lonmax")).thenReturn("lonmax");
-        
-        MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
-/*        File uploadFile = Mockito.mock(File.class);
-        MultipartUtility multipart = Mockito.mock(MultipartUtility.class);
-        Mockito.doThrow(Exception.class).when(multipart).addFilePart("file[]", uploadFile);
-        Mockito.when(uploadFile.getName()).thenReturn("uploadFile");*/
-        
-        multiModelPortlet.submitExperiment(request, response);                       
+        Mockito.when(request.getParameter("token")).thenReturn("token");
+        Mockito.when(request.getParameter("modelsString")).
+                thenReturn("modelsString");
+        Mockito.when(request.getParameter("scenario")).
+                thenReturn("scenario");
+        Mockito.when(request.
+                getParameter("time_frequency")).
+                thenReturn("timeFrequency");
+        Mockito.when(request.
+                getParameter("historical_time_min")).
+                thenReturn("historicalTimeMin");
+        Mockito.when(request.
+                getParameter("historical_time_max")).
+                thenReturn("historicalTimeMax");
+        Mockito.when(request.
+                getParameter("scenario_time_min")).
+                thenReturn("scenarioTimeMin");
+        Mockito.when(request.
+                getParameter("scenario_time_max")).
+                thenReturn("scenarioTimeMax");
+        Mockito.when(request.getParameter("latmin")).
+                thenReturn("latmin");
+        Mockito.when(request.getParameter("latmax")).
+                thenReturn("latmax");
+        Mockito.when(request.getParameter("lonmin")).
+                thenReturn("lonmin");
+        Mockito.when(request.getParameter("lonmax")).
+                thenReturn("lonmax");
+
+        MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
+
+        multiModelPortlet.submitExperiment(request, response);
     }
-    
-/*    @Test
-    public final void testgetAppID() throws Exception {
-        MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
-        HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
-        final int CODE1 = 200;
-        Mockito.when(con.getResponseCode()).thenReturn(CODE1);
-        multiModelPortlet.getAppID("kepler-batch");
-    }*/
-    
-/*    @Test
-    public final void testgetAppIDWithIncorrectValue() throws Exception {
-        MultiModelPortlet multiModelPortlet = new MultiModelPortlet(); 
-        HttpURLConnection con =  Mockito.mock(HttpURLConnection.class);
-        Mockito.when(con.getResponseCode()).thenReturn(500);
-        multiModelPortlet.getAppID("kepler-batch");
-    }*/
-    
+
     @Test
     public final void testNewFGTask() throws Exception {
-        
+
+        final int code1 = 200;
+        final int code2 = 3;
+
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         HttpURLConnection con2 =  Mockito.mock(HttpURLConnection.class);
         InputStream in = Mockito.mock(InputStream.class);
-        
-        Mockito.when(con2.getResponseCode()).thenReturn(200);
-        Mockito.when(con2.getInputStream()).thenReturn(in);  
-        
-        multiModelPortlet.newFGTask(3);
+
+        Mockito.when(con2.getResponseCode()).thenReturn(code1);
+        Mockito.when(con2.getInputStream()).thenReturn(in);
+
+        multiModelPortlet.newFGTask(code2);
     }
-    
+
     @Rule
-    public TemporaryFolder folder= new TemporaryFolder();
-    
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
-    public final void testCreateParametersFile() throws IOException, JSONException {
-       
+    public final void testCreateParametersFile()
+            throws IOException, JSONException {
+
+        final int code = 300;
+
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
         Path tmpPath = Mockito.mock(Path.class);
-        
-        //File myFile = folder.newFile("myFile.txt");
-        
-        multiModelPortlet.createParametersFile(300, tmpPath);    
+
+        multiModelPortlet.createParametersFile(code, tmpPath);
     }
-    
+
     @Test
     public final void testSendTaskInputFile() throws Exception {
         MultiModelPortlet multiModelPortlet = new MultiModelPortlet();
-        
+        final int code = 300;
+
         File uploadFile1 = folder.newFile("fileName1.txt");
         File uploadFile2 = folder.newFile("fileName2.txt");
-            
-        multiModelPortlet.sendTaskInputFile(300, uploadFile1, uploadFile2);     
-    }   
+
+        multiModelPortlet.sendTaskInputFile(code, uploadFile1, uploadFile2);
+    }
 }

@@ -23,7 +23,6 @@ package it.cmcc.indigo.dataanalytics.multimodel.utility;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -32,15 +31,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MultipartUtilityTest {
-    
+
     @Before
     public final void setUp() throws Exception {
-    }  
+    }
 
     /**
      * Test the class.
@@ -48,32 +46,28 @@ public class MultipartUtilityTest {
      */
     @Test
     public final void testMultipartUtility() throws IOException {
-        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token");       
-    }
-    
-/*    @Test
-    public List<String> testFinish() {
-        return null;
-        
-    }*/
-    @Rule
-    public TemporaryFolder folder= new TemporaryFolder();
-    
-    @Test
-    public void testAddFilePart() throws IOException {
-        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
-        File uploadFile = folder.newFile("fileName.txt");
-        
-        multipart.addFilePart("fieldName", uploadFile);
-    }
-    
-    @Test
-    public void testReadResponse() throws IOException {
-        MultipartUtility multipart = new MultipartUtility("http://www.google.it", "UTF-8", "token"); 
-        InputStream is = new ByteArrayInputStream("test data".getBytes());
-        
-        multipart.readResponse(is);
-         
+        MultipartUtility multipart =
+            new MultipartUtility("http://www.google.it", "UTF-8", "token");
     }
 
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
+    @Test
+    public final void testAddFilePart() throws IOException {
+        MultipartUtility multipart =
+            new MultipartUtility("http://www.google.it", "UTF-8", "token");
+        File uploadFile = folder.newFile("fileName.txt");
+
+        multipart.addFilePart("fieldName", uploadFile);
+    }
+
+    @Test
+    public final void testReadResponse() throws IOException {
+        MultipartUtility multipart =
+            new MultipartUtility("http://www.google.it", "UTF-8", "token");
+        InputStream is = new ByteArrayInputStream("test data".getBytes());
+
+        multipart.readResponse(is);
+    }
 }

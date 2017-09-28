@@ -69,9 +69,7 @@ import org.osgi.service.component.annotations.Component;
 
 public class MultiModelPortlet extends MVCPortlet {
 
-//  private String fgURL = "http://cloud144.ncg.ingrid.pt/apis";
     private String fgURL = "https://fgw01.ncg.ingrid.pt/apis";
-
     private String token = null;
     private String modelsString = null;
     private String[] models = null;
@@ -95,74 +93,40 @@ public class MultiModelPortlet extends MVCPortlet {
                 throws JSONException, IOException {
 
         token = ParamUtil.getString(request, "token");
+        modelsString = ParamUtil.getString(request, "modelsString");
 
-        modelsString = ParamUtil.getString(request,"modelsString");
-        
-        System.out.println("models =  " + modelsString);
-        
-        models = modelsString.split("\\|");;
+        models = modelsString.split("\\|");
 
         for (int i = 0; i < models.length; i++) {
             System.out.println("models " + i + ": " + models[i]);
         }
-        
+
         scenario = ParamUtil.getString(request, "scenario");
-        System.out.println("scenario =  " + scenario);
-
         timeFrequency = ParamUtil.getString(request, "time_frequency");
-        System.out.println("time_frequency =  " + timeFrequency);
-
         percentile = ParamUtil.getString(request, "percentile");
-        System.out.println("percentile =  " + percentile);
-
         historicalTimeMin = ParamUtil.getString(request, "historical_time_min");
-        System.out.println("historical_time_min =  " + historicalTimeMin);
-
         historicalTimeMax = ParamUtil.getString(request, "historical_time_max");
-        System.out.println("historical_time_max =  " + historicalTimeMax);
-
         scenarioTimeMin = ParamUtil.getString(request, "scenario_time_min");
-        System.out.println("scenario_time_min =  " + scenarioTimeMin);
-
         scenarioTimeMax = ParamUtil.getString(request, "scenario_time_max");
-        System.out.println("scenario_time_max =  " + scenarioTimeMax);
-
         latmin = ParamUtil.getString(request, "latmin");
-        System.out.println("latmin =  " + latmin);
-
         latmax = ParamUtil.getString(request, "latmax");
-        System.out.println("latmax =  " + latmax);
-
         lonmin = ParamUtil.getString(request, "lonmin");
-        System.out.println("lonmin =  " + lonmin);
-
         lonmax = ParamUtil.getString(request, "lonmax");
-        System.out.println("lonmax =  " + lonmax);
 
         int idapp = getAppID("kepler-batch");
         int idtask = -1;
 
-        //if (idapp != -1) {
-            // new FG task creation
-            idtask = newFGTask(idapp);
+        // new FG task creation
+        idtask = newFGTask(idapp);
 
-            // temp dir creation
-            String tmpDirPrefix = "dataanalytics_";
-            Path tmpPath = Files.createTempDirectory(tmpDirPrefix);
+        // temp dir creation
+        String tmpDirPrefix = "dataanalytics_";
+        Path tmpPath = Files.createTempDirectory(tmpDirPrefix);
 
-//          HttpDownloadUtility.downloadFile(
-//          "https://raw.githubusercontent.com/indigo-dc/tosca-templates/
-//          master/kepler-batch.yaml", tmp_path.toString());
-//          System.out.println(tmp_path.toString() + "/tosca_template.yaml");
-//          File uploadFile1 = new File(tmp_path.toString() +
-//          "/tosca_template.yaml");
-            File uploadFile1 = createParametersFile(idtask, tmpPath);
-            File uploadFile2 = new File("/home/futuregateway/FutureGateway/"
-                + "fgAPIServer/apps/kepler-batch/tosca_template.yaml");
-            sendTaskInputFile(idtask, uploadFile1, uploadFile2);
-/*        } else {
-            System.out.println("Application is not present in the database!");
-        }*/
+        File uploadFile1 = createParametersFile(idtask, tmpPath);
+        File uploadFile2 = new File("/home/futuregateway/FutureGateway/"
+            + "fgAPIServer/apps/kepler-batch/tosca_template.yaml");
+        sendTaskInputFile(idtask, uploadFile1, uploadFile2);
     }
 
     /** First step: get application ID
@@ -246,7 +210,7 @@ public class MultiModelPortlet extends MVCPortlet {
         if (responseCode2 == code1 || responseCode2 == code2) {
             InputStream in = con2.getInputStream();
             BufferedReader in2 = new BufferedReader(new InputStreamReader(in));
-            
+
             String inputLine2;
             StringBuffer response2 = new StringBuffer();
 
@@ -259,7 +223,6 @@ public class MultiModelPortlet extends MVCPortlet {
                     response2.toString());
             idtask = myObject2.getInt("id");
         }
-       
         return idtask;
     }
 
