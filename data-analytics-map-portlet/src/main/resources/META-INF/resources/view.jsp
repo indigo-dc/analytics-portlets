@@ -51,7 +51,7 @@
 		String token = urltoken.substring(index + 1);
 		String url = urltoken.substring(0, index);
 
-		URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + "&name=min.png");
+		URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + "&name=var.png");
 		HttpURLConnection con = (HttpURLConnection)obj.openConnection();
 		con.setRequestMethod("GET");
 		con.setRequestProperty("Authorization", "Bearer " + token);

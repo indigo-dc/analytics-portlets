@@ -40,8 +40,8 @@ import org.osgi.service.component.annotations.Component;
     property = {
         "com.liferay.portlet.display-category=Data Analytics",
         "com.liferay.portlet.instanceable=true",
-        "javax.portlet.name=minmap",
-        "javax.portlet.display-name=Minimum Map",
+        "javax.portlet.name=varmap",
+        "javax.portlet.display-name=Variance Map",
         "javax.portlet.init-param.template-path=/",
         "javax.portlet.init-param.view-template=/view.jsp",
         "javax.portlet.resource-bundle=content.Language",
