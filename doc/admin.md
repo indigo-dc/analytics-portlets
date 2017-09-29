@@ -19,7 +19,7 @@ The module upload page is available on the portal under `Liferay > Control Panel
 
 The administrator can select the file to upload from the local file system and click on the `Install` button. 
 
-![Jar selection](img/deployment2.png)
+![Jar selection](img/deployment2new.png)
 
 ![Jar upload completed](img/deployment3.png)
 
