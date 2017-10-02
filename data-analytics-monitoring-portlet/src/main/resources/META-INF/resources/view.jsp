@@ -32,8 +32,6 @@
 
 <portlet:resourceURL id="serveResource" var="serveResource"/>
 
-<portlet:actionURL name="/enes/getOutputPath" var="getOutputPath" />
-
 <style type="text/css">
 
 .portletPanel {
@@ -106,35 +104,6 @@ tr.simple td{
   	          			$('#tasksList').append(trHTML);
   	          			highlight('tasksList');
   	      	    }  
-  	      	    
-/*      	        success: function (response) {
-     	        	response = '';
-           			var trHTML = '';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-              			
-          			$('#tasksList').append(trHTML);
-          			highlight('tasksList');
-      			} */
      	    });
      	    
      	    var previousSelection = null;
@@ -158,15 +127,11 @@ tr.simple td{
      	            currentSelection.toggleClass("highlight");
      	            previousSelection = currentSelection;
      	            
-     	     	    $.ajax({
-     	     	        type: "POST",
-     	     	        data: {"<portlet:namespace />token" : token, "<portlet:namespace />taskid" : taskId},
-  	    	            url: "<%=getOutputPath%>",
-     		     	    success: function (response) {
-							//alert("evento!!!");
-     		      		}
-     	     	    });
-     	            
+     	            avgVisualization(taskId);
+     	            maxVisualization(taskId);
+     	            minVisualization(taskId);
+     	            stdVisualization(taskId);
+     	            varVisualization(taskId);
      	        }
      	    ))};
       }
@@ -193,21 +158,6 @@ function refresh() {
 		  	          			$('#tasksList').append(trHTML);
 		  	          			highlight('tasksList');
 		  	      		} 
-/* 		     	        success: function (response) {
-		     	        	$('#bodyId').empty();
-		     	        	response = '';
-		           			var trHTML = '';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			trHTML += '<tr><td class="col-lg-1">' + "id" + '</td><td class="col-lg-2">' + "date" + '</td><td class="col-lg-8">' + "description" + '</td><td class="col-lg-1">' + "status" + '</td></tr>';
-		              			
-		          			$('#tasksList').append(trHTML);
-		          			highlight('tasksList');
-		      			} */
 		     	    });
 		     	    
 		     	    var previousSelection = null;
@@ -231,15 +181,11 @@ function refresh() {
 		     	            currentSelection.toggleClass("highlight");
 		     	            previousSelection = currentSelection;
 		     	            
-		     	     	    $.ajax({
-		     	     	        type: "POST",
-		     	     	        data: {"<portlet:namespace />token" : token, "<portlet:namespace />taskid" : taskId},
-		  	    	            url: "<%=getOutputPath%>",
-		     		     	    success: function (response) {
-									//alert("evento!!!");
-		     		      		}
-		     	     	    });
-		     	            
+		     	            avgVisualization(taskId);
+		     	            maxVisualization(taskId);
+		     	            minVisualization(taskId);
+		     	            stdVisualization(taskId);
+		     	            varVisualization(taskId);
 		     	        }
 		     	    ))};
 		      }

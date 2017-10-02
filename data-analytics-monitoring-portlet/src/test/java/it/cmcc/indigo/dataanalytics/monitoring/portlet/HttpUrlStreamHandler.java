@@ -1,4 +1,4 @@
-package it.cmcc.indigo.dataanalytics.monitoring.portlet.action;
+package it.cmcc.indigo.dataanalytics.monitoring.portlet;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -17,7 +17,7 @@ public class HttpUrlStreamHandler extends URLStreamHandler {
     /**
      * Map reference between URL and HttpURLConnection.
      */
-    private Map<URL, HttpURLConnection> connections = new HashMap();
+    private Map<URL, HttpURLConnection> connections = new HashMap<URL, HttpURLConnection>();
 
     /**
      * openConnection method.
@@ -32,7 +32,7 @@ public class HttpUrlStreamHandler extends URLStreamHandler {
      * resetConnection method.
      */
     public final void resetConnections() {
-        connections = new HashMap();
+        connections = new HashMap<URL, HttpURLConnection>();
     }
 
     /**

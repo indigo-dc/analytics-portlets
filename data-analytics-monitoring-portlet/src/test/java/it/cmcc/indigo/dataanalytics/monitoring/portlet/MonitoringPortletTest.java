@@ -41,9 +41,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import
-it.cmcc.indigo.dataanalytics.monitoring.portlet.action.HttpUrlStreamHandler;
-
 /**
  * Main class for MonitoringPortlet test.
  */
