@@ -45,15 +45,15 @@
                     <td style="padding-left: 1cm;">
 		            Latitude interval
 		            <br>
-		            <input style="width:210px;" id="latmin" name="<portlet:namespace/>latmin" type="text" value="-90" id="latmin" label="Lat min" />
-		            <input style="width:210px;" id="latmax" name="<portlet:namespace/>latmax" type="text" value="90" id="latmax" label="Lat max" />
+		            <input style="width:210px;" id="latmin" name="<portlet:namespace/>latmin" type="text" disabled="true" value="-90" id="latmin" label="Lat min" />
+		            <input style="width:210px;" id="latmax" name="<portlet:namespace/>latmax" type="text" disabled="true" value="90" id="latmax" label="Lat max" />
 		            <br>
 		            <br>
 		           
 		            Longitude interval
 		            <br>
-		            <input style="width:210px;" id="lonmin" name="<portlet:namespace/>lonmin" type="text" value="0" id="lonmin" label="Lon min" />
-		            <input style="width:210px;" id="lonmax" name="<portlet:namespace/>lonmax" type="text" value="360" id="lonmax" label="Lon max" />
+		            <input style="width:210px;" id="lonmin" name="<portlet:namespace/>lonmin" type="text" disabled="true" value="0" id="lonmin" label="Lon min" />
+		            <input style="width:210px;" id="lonmax" name="<portlet:namespace/>lonmax" type="text" disabled="true" value="360" id="lonmax" label="Lon max" />
 		            <br>
 		            <br>
 		            
@@ -267,29 +267,21 @@ function drawNewRect(newRect) {
     var latmin = southWest.lat();
     var latmax = northEast.lat();
     
-    var lonmin_temp = southWest.lng();
-    var lonmin = null;
-    if (lonmin_temp >= 0) {
-    	lonmin = lonmin_temp;	
-    }
-    else if (lonmin_temp < 0) {
-    	lonmin = 360 + lonmin_temp
-    }
-    
+    var lonmin = southWest.lng();
     var lonmax_temp = northEast.lng();
     var lonmax = null;
-    if (lonmax_temp >= 0) {
-    	lonmax = lonmax_temp;
+    
+    if (lonmin > 0 && lonmax_temp < 0) {
+    	lonmax = 360 + lonmax_temp;
     }
-    else if (lonmax_temp < 0) {
-    	lonmax = 360 + lonmax_temp
+    else {
+    	lonmax = lonmax_temp;
     }
     
     document.getElementById("latmin").value = latmin.toFixed(2);
     document.getElementById("latmax").value = latmax.toFixed(2);
     document.getElementById("lonmin").value = lonmin.toFixed(2);
-    document.getElementById("lonmax").value = lonmax.toFixed(2);
-   
+    document.getElementById("lonmax").value = lonmax.toFixed(2); 
 }
 
 </script>

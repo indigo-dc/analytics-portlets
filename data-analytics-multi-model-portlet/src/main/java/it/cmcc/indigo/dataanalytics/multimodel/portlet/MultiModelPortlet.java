@@ -168,11 +168,6 @@ public class MultiModelPortlet extends MVCPortlet {
         modelsString = ParamUtil.getString(request, "modelsString");
 
         models = modelsString.split("\\|");
-
-        for (int i = 0; i < models.length; i++) {
-            System.out.println("models " + i + ": " + models[i]);
-        }
-
         scenario = ParamUtil.getString(request, "scenario");
         timeFrequency = ParamUtil.getString(request, "time_frequency");
         percentile = ParamUtil.getString(request, "percentile");
@@ -387,7 +382,6 @@ public class MultiModelPortlet extends MVCPortlet {
             jsonString += "}";
             jsonString += "}";
             jsonString += "\n";
-            System.out.println("json: " + jsonString);
 
             file = new File(tmpPath + "/parameters.json");
             file.createNewFile();
