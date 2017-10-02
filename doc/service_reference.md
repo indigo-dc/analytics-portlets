@@ -9,8 +9,14 @@ Provide the possibility to execute an intercomparison between models through a f
   * Tomcat8 needed by Liferay
   
 **Configuration:**
- 
-The ENES analytics portlets needs an external file, in JSON format, to correctly map the different climate models with the related data centers. The file models-mapping.json should be provided and should be similar to the example below. 
+
+The ENES analytics portlets rely on the Future Gateway API server available at the link: https://fgw01.ncg.ingrid.pt/apis/v1.0.
+
+The data-analytics-multi-model portlet needs two external files to correctly submit a multi-model experiment through the Kepler-batch application:
+1. the tosca_template.yaml file, a TOSCA example to specify a Chronos Job that runs a batch Kepler job;
+2. the models-mapping.json file, where there is a mapping between the different climate models and the related data centers.
+
+The file models-mapping.json should be similar to the example below. 
 
 {
     "models": [{
