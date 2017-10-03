@@ -17,7 +17,8 @@ public class HttpUrlStreamHandler extends URLStreamHandler {
     /**
      * Map reference between URL and HttpURLConnection.
      */
-    private Map<URL, HttpURLConnection> connections = new HashMap<URL, HttpURLConnection>();
+    private Map<URL, HttpURLConnection> connections =
+            new HashMap<URL, HttpURLConnection>();
 
     /**
      * openConnection method.

@@ -59,67 +59,71 @@ import org.osgi.service.component.annotations.Component;
 )
 
 public class MapPortlet extends MVCPortlet {
-	
-	private String token = null;
-	private String taskid = null;
-	
-	@Override
-	public final void serveResource(final ResourceRequest resourceRequest,
-	        final ResourceResponse resourceResponse) throws IOException {
-		
-		token = resourceRequest.getParameter("token");
-		taskid = resourceRequest.getParameter("taskid");
-		
-		String filename = "&name=avg.png";
-		
-		String b64 = "";
-		String url = "";
-		
-		URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/"
-	            + taskid);
+
+    /**
+     * The reference to the token.
+     */
+    private String token = null;
+
+    /**
+     * The reference to the taskid.
+     */
+    private String taskid = null;
+
+    @Override
+    public final void serveResource(final ResourceRequest resourceRequest,
+            final ResourceResponse resourceResponse) throws IOException {
+
+        token = resourceRequest.getParameter("token");
+        taskid = resourceRequest.getParameter("taskid");
+
+        String filename = "&name=avg.png";
+
+        String b64 = "";
+        String url = "";
+
+        URL obj = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/"
+                + taskid);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Authorization", "Bearer " + token);
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
-        
-//        final int code1 = 200;
-//        final int code2 = 201;
-        
-//        if (responseCode == code1 || responseCode == code2) {
-        	BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            
-            String myObject = response.toString();
-            int start = myObject.indexOf("file?path=");
-            int end = myObject.indexOf(filename);
-            url = myObject.substring(start, end);
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
 
-            URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + filename);
-    		HttpURLConnection con2 = (HttpURLConnection)obj2.openConnection();
-    		con2.setRequestMethod("GET");
-    		con2.setRequestProperty("Authorization", "Bearer " + token);
-    		int responseCode2 = con2.getResponseCode();
-    		System.out.println("\nSending 'GET' request to URL: " + obj2.toString());
-    		System.out.println("Response Code : " + responseCode2);
-    		
-    		BufferedImage image = ImageIO.read(con2.getInputStream());
-        	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        	ImageIO.write(image, "png", baos);
-        	baos.flush();
-        	byte[] imageInByteArray = baos.toByteArray();
-        	baos.close();
-        	b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-        	
-        	resourceResponse.getWriter().write(b64);
-//        }
-	}
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        String myObject = response.toString();
+        int start = myObject.indexOf("file?path=");
+        int end = myObject.indexOf(filename);
+        url = myObject.substring(start, end);
+
+        URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/"
+             + url + filename);
+        HttpURLConnection con2 = (HttpURLConnection) obj2.openConnection();
+        con2.setRequestMethod("GET");
+        con2.setRequestProperty("Authorization", "Bearer " + token);
+        int responseCode2 = con2.getResponseCode();
+        System.out.println("\nSending 'GET' request to URL: "
+             + obj2.toString());
+        System.out.println("Response Code : " + responseCode2);
+
+        BufferedImage image = ImageIO.read(con2.getInputStream());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", baos);
+        baos.flush();
+        byte[] imageInByteArray = baos.toByteArray();
+        baos.close();
+        b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+        resourceResponse.getWriter().write(b64);
+    }
 }

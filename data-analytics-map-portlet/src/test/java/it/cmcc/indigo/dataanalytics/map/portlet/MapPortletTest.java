@@ -21,20 +21,14 @@
 
 package it.cmcc.indigo.dataanalytics.map.portlet;
 
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLStreamHandlerFactory;
 
-import javax.imageio.ImageIO;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
@@ -52,7 +46,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
 
-	/**
+    /**
      * Fake request for serveResource method.
      */
     @Mock
@@ -68,7 +62,7 @@ public class MapPortletTest {
      * Fake httpUrlStreamHandler for serveResource method.
      */
     private static HttpUrlStreamHandler httpUrlStreamHandler;
-    
+
     /**
      * Setup of the mocking URL connections.
      */
@@ -91,17 +85,18 @@ public class MapPortletTest {
     public final void reset() {
         httpUrlStreamHandler.resetConnections();
     }
-    
+
     /**
      * Test the portlet.
      * @throws IOException On input error
      */
     @Test
     public final void testServeResource() throws IOException {
-    	Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
-    	Mockito.when(resourceRequest.getParameter("taskid")).thenReturn("taskid");
-    	
-    	String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/taskid";
+        Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
+        Mockito.when(resourceRequest.getParameter("taskid"))
+            .thenReturn("taskid");
+
+        String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/taskid";
         HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
         String st = "{";
@@ -113,23 +108,26 @@ public class MapPortletTest {
         st += "\"id\": \"675\",";
         st += "\"output_files\": [";
         st += "{";
-        st += "\"url\": \"file?path=%2Ftmp%2F62ddd314-9d2e-11e7-82b9-fa163ef43b50%2F675tmp62ddd3149d2e11e782b9fa163ef43b50_446&name=avg.png\",";
-     
+        st += "\"url\": \"file?path=%2Ftmp%2F62ddd314-9d2e-11e7-82b9-fa163ef43b"
+            + "50%2F675tmp62ddd3149d2e11e782b9fa163ef43b50_446&name=avg.png\",";
+
         InputStream is = new ByteArrayInputStream(st.getBytes());
         Mockito.when(con.getInputStream()).thenReturn(is);
-        
-        String href2 = "https://fgw01.ncg.ingrid.pt/apis/v1.0/file?path=%2Ftmp%2F62ddd314-9d2e-11e7-82b9-fa163ef43b50%2F675tmp62ddd3149d2e11e782b9fa163ef43b50_446&name=avg.png";
+
+        String href2 = "https://fgw01.ncg.ingrid.pt/apis/v1.0/file?path=%2Ftmp%"
+            + "2F62ddd314-9d2e-11e7-82b9-fa163ef43b50%2F675tmp62ddd3149d2e11e"
+            + "782b9fa163ef43b50_446&name=avg.png";
         HttpURLConnection con2 = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href2), con2);
-        
-        InputStream is2 = new URL("http://www.eticamente.net/wp-content/uploads/2016/11/gatto-1024x768.png").openStream();
+
+        InputStream is2 = new URL("http://www.eticamente.net/wp-content/"
+            + "uploads/2016/11/gatto-1024x768.png").openStream();
         Mockito.when(con2.getInputStream()).thenReturn(is2);
-        
+
         PrintWriter pw = Mockito.mock(PrintWriter.class);
         Mockito.when(resourceResponse.getWriter()).thenReturn(pw);
-        
+
         MapPortlet mp = new MapPortlet();
         mp.serveResource(resourceRequest, resourceResponse);
     }
-
 }
