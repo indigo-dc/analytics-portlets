@@ -21,10 +21,6 @@
 
 package it.cmcc.indigo.dataanalytics.map.portlet;
 
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONException;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 
 import java.awt.image.BufferedImage;
@@ -74,6 +70,8 @@ public class MapPortlet extends MVCPortlet {
 		token = resourceRequest.getParameter("token");
 		taskid = resourceRequest.getParameter("taskid");
 		
+		String filename = "&name=avg.png";
+		
 		String b64 = "";
 		String url = "";
 		
@@ -86,10 +84,10 @@ public class MapPortlet extends MVCPortlet {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
         
-        final int code1 = 200;
-        final int code2 = 201;
+//        final int code1 = 200;
+//        final int code2 = 201;
         
-        if (responseCode == code1 || responseCode == code2) {
+//        if (responseCode == code1 || responseCode == code2) {
         	BufferedReader in = new BufferedReader(
                     new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -99,31 +97,13 @@ public class MapPortlet extends MVCPortlet {
                 response.append(inputLine);
             }
             in.close();
+            
+            String myObject = response.toString();
+            int start = myObject.indexOf("file?path=");
+            int end = myObject.indexOf(filename);
+            url = myObject.substring(start, end);
 
-            JSONObject myObject;
-            try {
-                myObject = JSONFactoryUtil.createJSONObject(
-                    response.toString());
-                String status = myObject.getString("status");
-                if (status.equals("DONE")) {
-                    JSONArray myArray = myObject.getJSONArray("output_files");
-                    if (myArray.length() != 0) {
-                        JSONObject fileobj = myArray.getJSONObject(0);
-                        String completeurl = fileobj.getString("url");
-                        int index = completeurl.indexOf("&");
-                        url = completeurl.substring(0, index);
-
-                    } else {
-                        System.out.println("Output files not found");
-                    }
-                } else {
-                    System.out.println("Unable to retrieve the outputs"
-                            + "until the status is done.");
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + "&name=max.png");
+            URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + filename);
     		HttpURLConnection con2 = (HttpURLConnection)obj2.openConnection();
     		con2.setRequestMethod("GET");
     		con2.setRequestProperty("Authorization", "Bearer " + token);
@@ -140,6 +120,6 @@ public class MapPortlet extends MVCPortlet {
         	b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
         	
         	resourceResponse.getWriter().write(b64);
-        }
+//        }
 	}
 }
