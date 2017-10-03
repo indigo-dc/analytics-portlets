@@ -21,11 +21,16 @@
 
 package it.cmcc.indigo.dataanalytics.map.portlet;
 
-import javax.portlet.Event;
-import javax.portlet.EventRequest;
-import javax.portlet.EventResponse;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLStreamHandlerFactory;
+
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -38,58 +43,64 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class MapPortletTest {
 
-    /**
-     * Fake request for getPath method.
+	/**
+     * Fake request for serveResource method.
      */
     @Mock
-    private EventRequest request;
+    private ResourceRequest resourceRequest;
 
     /**
-     * Fake response for getPath method.
+     * Fake response for serveResource method.
      */
     @Mock
-    private EventResponse response;
+    private ResourceResponse resourceResponse;
 
     /**
-     * Fake event for getPath method.
+     * Fake httpUrlStreamHandler for serveResource method.
      */
-    @Mock
-    private Event event;
-
+    private static HttpUrlStreamHandler httpUrlStreamHandler;
+    
     /**
-     * Fake portlet class for getPath method.
+     * Setup of the mocking URL connections.
      */
-    @Mock
-    private MapPortlet map;
+    @BeforeClass
+    public static void setupURLStreamHandlerFactory() {
+        // Allows for mocking URL connections
+        URLStreamHandlerFactory urlStreamHandlerFactory = Mockito
+                .mock(URLStreamHandlerFactory.class);
+        URL.setURLStreamHandlerFactory(urlStreamHandlerFactory);
+
+        httpUrlStreamHandler = new HttpUrlStreamHandler();
+        Mockito.when(urlStreamHandlerFactory.createURLStreamHandler("https")
+                ).thenReturn(httpUrlStreamHandler);
+    }
 
     /**
      * Prepare the environment.
-     * @throws Exception In case of a problem to replicate Liferay context
      */
     @Before
-    public final void setUp() throws Exception {
-        Mockito.when(request.getEvent()).thenReturn(event);
+    public final void reset() {
+        httpUrlStreamHandler.resetConnections();
     }
-
+    
     /**
      * Test the portlet.
-     * @throws Exception In case of problem
+     * @throws IOException On input error
      */
     @Test
-    public final void testGetPathWithCorrectValue() throws Exception {
-        Mockito.when(event.getValue()).thenReturn("url|token");
-        map = new MapPortlet();
-//        map.getPath(request, response);
+    public final void testServeResource() throws IOException {
+    	Mockito.when(resourceRequest.getParameter("token")).thenReturn("token");
+    	Mockito.when(resourceRequest.getParameter("taskid")).thenReturn("taskid");
+    	
+    	String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks/taskid";
+        HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
+        httpUrlStreamHandler.addConnection(new URL(href), con);
+        /*InputStream is = new ByteArrayInputStream("tasks: [test data]"
+                .getBytes());
+        Mockito.when(con.getInputStream()).thenReturn(is);*/
+        
+        MapPortlet mp = new MapPortlet();
+        mp.serveResource(resourceRequest, resourceResponse);
     }
 
-    /**
-     * Test the portlet.
-     * @throws Exception In case of problem
-     */
-    @Test
-    public final void testGetPathWithIncorrectValue() {
-        Mockito.when(event.getValue()).thenReturn("urltoken");
-        map = new MapPortlet();
-//        map.getPath(request, response);
-    }
 }

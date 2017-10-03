@@ -40,20 +40,20 @@ var token = null;
 		token = obj.token;
 	}
 )};
-function avgVisualization(taskid) {
+function maxVisualization(taskid) {
 	$.ajax({
 		type: "POST",
 	    data: {"<portlet:namespace />token" : token, "<portlet:namespace />taskid" : taskid},
         url: "<%=serveResource%>",
    	    success: function (response) {
-   	    	$("#avg").html('<img src="data:image/jpg;base64,' + response + '" />');
+   	    	$("#max").html('<img src="data:image/jpg;base64,' + response + '" />');
         }
     });
 }
 </script>
 
 <div class="panel panel-default">
-	<div class="panel-body" id="avg">
-			<p>Select an ensemble task from the Experiment monitoring table to visualise the average map.</p>
+	<div class="panel-body" id="max">
+			<p>Select an ensemble task from the Experiment monitoring table to visualise the maximum map.</p>
 	</div>
 </div>

@@ -52,8 +52,8 @@ import org.osgi.service.component.annotations.Component;
     property = {
         "com.liferay.portlet.display-category=Data Analytics",
         "com.liferay.portlet.instanceable=true",
-        "javax.portlet.name=avgmap",
-        "javax.portlet.display-name=Average Map",
+        "javax.portlet.name=maxmap",
+        "javax.portlet.display-name=Maximum Map",
         "javax.portlet.init-param.template-path=/",
         "javax.portlet.init-param.view-template=/view.jsp",
         "javax.portlet.resource-bundle=content.Language",
@@ -86,56 +86,60 @@ public class MapPortlet extends MVCPortlet {
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
         
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
+        final int code1 = 200;
+        final int code2 = 201;
+        
+        if (responseCode == code1 || responseCode == code2) {
+        	BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
 
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        JSONObject myObject;
-        try {
-            myObject = JSONFactoryUtil.createJSONObject(
-                response.toString());
-            String status = myObject.getString("status");
-            if (status.equals("DONE")) {
-                JSONArray myArray = myObject.getJSONArray("output_files");
-                if (myArray.length() != 0) {
-                    JSONObject fileobj = myArray.getJSONObject(0);
-                    String completeurl = fileobj.getString("url");
-                    int index = completeurl.indexOf("&");
-                    url = completeurl.substring(0, index);
-
-                } else {
-                    System.out.println("Output files not found");
-                }
-            } else {
-                System.out.println("Unable to retrieve the outputs"
-                        + "until the status is done.");
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            in.close();
+
+            JSONObject myObject;
+            try {
+                myObject = JSONFactoryUtil.createJSONObject(
+                    response.toString());
+                String status = myObject.getString("status");
+                if (status.equals("DONE")) {
+                    JSONArray myArray = myObject.getJSONArray("output_files");
+                    if (myArray.length() != 0) {
+                        JSONObject fileobj = myArray.getJSONObject(0);
+                        String completeurl = fileobj.getString("url");
+                        int index = completeurl.indexOf("&");
+                        url = completeurl.substring(0, index);
+
+                    } else {
+                        System.out.println("Output files not found");
+                    }
+                } else {
+                    System.out.println("Unable to retrieve the outputs"
+                            + "until the status is done.");
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + "&name=max.png");
+    		HttpURLConnection con2 = (HttpURLConnection)obj2.openConnection();
+    		con2.setRequestMethod("GET");
+    		con2.setRequestProperty("Authorization", "Bearer " + token);
+    		int responseCode2 = con2.getResponseCode();
+    		System.out.println("\nSending 'GET' request to URL: " + obj2.toString());
+    		System.out.println("Response Code : " + responseCode2);
+    		
+    		BufferedImage image = ImageIO.read(con2.getInputStream());
+        	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        	ImageIO.write(image, "png", baos);
+        	baos.flush();
+        	byte[] imageInByteArray = baos.toByteArray();
+        	baos.close();
+        	b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+        	
+        	resourceResponse.getWriter().write(b64);
         }
-		
-		URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/" + url + "&name=avg.png");
-		HttpURLConnection con2 = (HttpURLConnection)obj2.openConnection();
-		con2.setRequestMethod("GET");
-		con2.setRequestProperty("Authorization", "Bearer " + token);
-		int responseCode2 = con2.getResponseCode();
-		System.out.println("\nSending 'GET' request to URL: " + obj2.toString());
-		System.out.println("Response Code : " + responseCode2);
-		
-		BufferedImage image = ImageIO.read(con2.getInputStream());
-    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
-    	ImageIO.write(image, "png", baos);
-    	baos.flush();
-    	byte[] imageInByteArray = baos.toByteArray();
-    	baos.close();
-    	b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-    	
-    	resourceResponse.getWriter().write(b64);
 	}
 }
