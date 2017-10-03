@@ -75,7 +75,7 @@ public class MonitoringPortlet extends MVCPortlet {
         int responseCode = con.getResponseCode();
         System.out.println("\nSending 'GET' request to URL: " + obj.toString());
         System.out.println("Response Code : " + responseCode);
-        
+
         BufferedReader in = new BufferedReader(
             new InputStreamReader(con.getInputStream()));
         String inputLine;

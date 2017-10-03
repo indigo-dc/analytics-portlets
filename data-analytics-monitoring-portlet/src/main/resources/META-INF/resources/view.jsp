@@ -127,11 +127,11 @@ tr.simple td{
      	            currentSelection.toggleClass("highlight");
      	            previousSelection = currentSelection;
      	            
-     	            avgVisualization(taskId);
+     	            //avgVisualization(taskId);
      	            maxVisualization(taskId);
-     	            minVisualization(taskId);
-     	            stdVisualization(taskId);
-     	            varVisualization(taskId);
+     	            //minVisualization(taskId);
+     	            //stdVisualization(taskId);
+     	            //varVisualization(taskId);
      	        }
      	    ))};
       }
@@ -181,11 +181,11 @@ function refresh() {
 		     	            currentSelection.toggleClass("highlight");
 		     	            previousSelection = currentSelection;
 		     	            
-		     	            avgVisualization(taskId);
+		     	            //avgVisualization(taskId);
 		     	            maxVisualization(taskId);
-		     	            minVisualization(taskId);
-		     	            stdVisualization(taskId);
-		     	            varVisualization(taskId);
+		     	            //minVisualization(taskId);
+		     	            //stdVisualization(taskId);
+		     	            //varVisualization(taskId);
 		     	        }
 		     	    ))};
 		      }
