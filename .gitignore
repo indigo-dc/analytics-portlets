@@ -30,6 +30,7 @@
 *.settings
 *.metadata
 /*/bin
+/*/libs
 atlassian-ide-plugin.xml
 
 # NetBeans
@@ -72,7 +73,7 @@ classes
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 
