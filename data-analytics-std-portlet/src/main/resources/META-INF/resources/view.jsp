@@ -33,22 +33,21 @@
 <portlet:resourceURL id="serveResource" var="serveResource"/>
 
 <script>
-var token = null;
-{Liferay.Service(
-	'/iam.token/get-token',
-	function(obj) {
-		token = obj.token;
-	}
-)};
 function stdVisualization(taskid) {
-	$.ajax({
-		type: "POST",
-	    data: {"<portlet:namespace />token" : token, "<portlet:namespace />taskid" : taskid},
-        url: "<%=serveResource%>",
-   	    success: function (response) {
-   	    	$("#std").html('<img src="data:image/png;base64,' + response + '" />');
-        }
-    });
+	{Liferay.Service(
+		'/iam.token/get-token',
+		function(obj) {
+			var token = obj.token;
+			$.ajax({
+				type: "POST",
+			    data: {"<portlet:namespace />token" : token, "<portlet:namespace />taskid" : taskid},
+		        url: "<%=serveResource%>",
+		   	    success: function (response) {
+		   	    	$("#std").html('<img src="data:image/png;base64,' + response + '" />');
+		        }
+		    });
+		}
+	)};
 }
 </script>
 

@@ -77,6 +77,7 @@ public class MapPortlet extends MVCPortlet {
         token = resourceRequest.getParameter("token");
         taskid = resourceRequest.getParameter("taskid");
 
+        String filename = "&name=avg.png";
         String b64 = "";
         String url = "";
 
@@ -105,7 +106,7 @@ public class MapPortlet extends MVCPortlet {
         url = myObject.substring(start, end);
 
         URL obj2 = new URL("https://fgw01.ncg.ingrid.pt/apis/v1.0/"
-             + url + "&name=avg.png");
+             + url + filename);
         HttpURLConnection con2 = (HttpURLConnection) obj2.openConnection();
         con2.setRequestMethod("GET");
         con2.setRequestProperty("Authorization", "Bearer " + token);
