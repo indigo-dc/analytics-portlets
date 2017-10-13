@@ -45,15 +45,15 @@
                     <td style="padding-left: 1cm;">
 		            Latitude interval
 		            <br>
-		            <input style="width:210px;" id="latmin" name="<portlet:namespace/>latmin" type="text" disabled="true" value="-90" id="latmin" label="Lat min" />
-		            <input style="width:210px;" id="latmax" name="<portlet:namespace/>latmax" type="text" disabled="true" value="90" id="latmax" label="Lat max" />
+		            <input style="width:210px;" id="latmin" disabled="true" name="<portlet:namespace/>latmin" type="text" disabled="true" value="-90" id="latmin" label="Lat min" />
+		            <input style="width:210px;" id="latmax" disabled="true" name="<portlet:namespace/>latmax" type="text" disabled="true" value="90" id="latmax" label="Lat max" />
 		            <br>
 		            <br>
 		           
 		            Longitude interval
 		            <br>
-		            <input style="width:210px;" id="lonmin" name="<portlet:namespace/>lonmin" type="text" disabled="true" value="0" id="lonmin" label="Lon min" />
-		            <input style="width:210px;" id="lonmax" name="<portlet:namespace/>lonmax" type="text" disabled="true" value="360" id="lonmax" label="Lon max" />
+		            <input style="width:210px;" id="lonmin" disabled="true" name="<portlet:namespace/>lonmin" type="text" disabled="true" value="0" id="lonmin" label="Lon min" />
+		            <input style="width:210px;" id="lonmax" disabled="true" name="<portlet:namespace/>lonmax" type="text" disabled="true" value="360" id="lonmax" label="Lon max" />
 		            <br>
 		            <br>
 		            
@@ -101,9 +101,10 @@
 	            <tr>
                     <td></td>
                     <td style="padding-left: 1cm;">
-	                    Insert a percentile
+	                    Select a percentile
 			            <br>
-			            <input style="width:210px;" name="<portlet:namespace/>percentile" type="text" value="Values between 0.0 and 1.0" id="percentile" label="Percentile" />
+			            <input type="range" style="width:210px;" min="0" max="1" value="0.5" id="percentileValue" step="0.1" oninput="outputPercentile(value)">
+			            <output id="percentile" for="percentileValue">0.5</output>
 			            <br>
 			            <br>
 			                           
@@ -133,6 +134,10 @@
 var gMap = null;
 var drawingManager = null;
 var drawingrectangle = null;
+
+function outputPercentile(vol) {
+	document.querySelector('#percentile').value = vol;
+}
 
 function formSubmit() {
 	var token = document.getElementById('<portlet:namespace/>token').value;
@@ -208,6 +213,7 @@ function formSubmit() {
 	    },
         url: "<%=submitExperiment%>",
     	success: function (response) {
+    		refreshtable();
      	}
 	});	
 }
@@ -217,17 +223,6 @@ function myMap() {
 	    gMap = new google.maps.Map(document.getElementById('mapDiv'), {
 	        center: {lat: 0, lng: 0},
 	        zoom: 2     
-	       
-	/*         border      : false,
-	        gmapType    : 'terrain',
-	        mapConfOpts : ['enableScrollWheelZoom','enableDoubleClickZoom','enableDragging'],
-	        mapControls : ['GSmallMapControl','GMapTypeControl','NonExistantControl'],
-	        mapOptions  : {
-	            zoom: 4
-	        },
-	        center      : {
-	            geoCodeAddr: 'Brazil'
-	        } */
 	    });
 	    
 	    drawingManager = new google.maps.drawing.DrawingManager({
@@ -247,9 +242,7 @@ function myMap() {
 	    });
 	       
 	    drawingManager.addListener('rectanglecomplete', drawNewRect);
-	   
 	    drawingManager.setMap(gMap);  
-
 }
 
 function drawNewRect(newRect) {
@@ -283,7 +276,6 @@ function drawNewRect(newRect) {
     document.getElementById("lonmin").value = lonmin.toFixed(2);
     document.getElementById("lonmax").value = lonmax.toFixed(2); 
 }
-
 </script>
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP9_o8xTeQmJYQgAP4b_sCaFvbhkOcE3k&callback=myMap&libraries=drawing"></script>

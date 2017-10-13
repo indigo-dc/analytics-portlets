@@ -338,12 +338,14 @@ public class MultiModelPortlet extends MVCPortlet {
                         String port = modelmapping.getString("port");
                         String username = modelmapping.getString("username");
                         String password = modelmapping.getString("password");
+                        String cores = modelmapping.getString("cores");
                         if (i == models.length - 1) {
                             jsonString += "{\\\"host\\\":\\\"" + host
                                     + "\\\",\\\"port\\\":\\\"" + port
                                     + "\\\",\\\"login\\\":\\\""
                                     + username + "\\\",\\\"password\\\":\\\""
-                                    + password + "\\\",\\\"argument\\\":\\\"8 "
+                                    + password + "\\\",\\\"argument\\\":\\\""
+                                    + cores + " "
                                     + modelname + " " + scenario + " "
                                     + timeFrequency + " " + percentile + " "
                                     + historicalTimeMin + "_"
@@ -359,7 +361,7 @@ public class MultiModelPortlet extends MVCPortlet {
                                     + "\\\",\\\"login\\\":\\\""
                                     + username + "\\\",\\\"password\\\":\\\""
                                     + password
-                                    + "\\\",\\\"argument\\\":\\\"8 "
+                                    + "\\\",\\\"argument\\\":\\\"" + cores + " "
                                     + modelname + " " + scenario + " "
                                     + timeFrequency + " " + percentile + " "
                                     + historicalTimeMin + "_"
