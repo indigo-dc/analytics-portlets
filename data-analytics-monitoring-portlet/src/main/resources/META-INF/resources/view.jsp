@@ -114,7 +114,7 @@
 	}
 )};
 
-function refresh() {
+function refreshtable() {
 	{Liferay.Service(
     	'/iam.token/get-token',
 		function(obj) {
@@ -123,7 +123,7 @@ function refresh() {
      	    	type: "POST",
      	        data: {"<portlet:namespace />token" : token},
      	        url: "<%=serveResource%>",
-		     	        success: function (response) {
+		     	success: function (response) {
 			    	$('#bodyId').empty();
 						
   	           		var trHTML = '';
@@ -176,7 +176,7 @@ function refresh() {
     <table style="width: 100%;">
         <tr>
  		    <td class="col-xs-11"></td>
- 		    <td class="col-xs-1"><input id="refresh" type="button" value="Refresh" onclick="refresh();"/></td>
+ 		    <td class="col-xs-1"><input id="refresh" type="button" value="Refresh" onclick="refreshtable();"/></td>
  	    </tr>
     </table>
     <br>
