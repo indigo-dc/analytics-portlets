@@ -29,7 +29,7 @@
 
 <style type="text/css">
 .wrapper {
-    text-align: center;
+    text-align: right;
 }
 </style>
 
@@ -37,95 +37,124 @@
     <div>
         <form>
             <input name="<portlet:namespace/>token" type="hidden" id="<portlet:namespace/>token" value=""/>
-            <br>
-            
+            <br>          
             <table>
-                <tr>
-                    <td><br><br><div id="mapDiv" style="width:600px;height:400px"></div></td>
-                    <td style="padding-left: 1cm;">
-		            Latitude interval
-		            <br>
-		            <input style="width:210px;" id="latmin" disabled="true" name="<portlet:namespace/>latmin" type="text" disabled="true" value="-90" id="latmin" label="Lat min" />
-		            <input style="width:210px;" id="latmax" disabled="true" name="<portlet:namespace/>latmax" type="text" disabled="true" value="90" id="latmax" label="Lat max" />
-		            <br>
-		            <br>
-		           
-		            Longitude interval
-		            <br>
-		            <input style="width:210px;" id="lonmin" disabled="true" name="<portlet:namespace/>lonmin" type="text" disabled="true" value="0" id="lonmin" label="Lon min" />
-		            <input style="width:210px;" id="lonmax" disabled="true" name="<portlet:namespace/>lonmax" type="text" disabled="true" value="360" id="lonmax" label="Lon max" />
-		            <br>
-		            <br>
-		            
-		            Select the models to compare
-		            <br>      
-		            <table>
-		                <tr>
-		                    <td style="width:150px;"><input id="model1" type="checkbox" name="<portlet:namespace/>model1" value="CCSM4"/> CCSM4</td>
-		                    <td style="width:150px;"><input id="model2" type="checkbox" name="<portlet:namespace/>model2" value="CMCC-CM"/> CMCC-CM</td>
-		                    <td style="width:150px;"><input id="model3" type="checkbox" name="<portlet:namespace/>model3" value="CMCC-CMS"/> CMCC-CMS</td>
-		                    <td style="width:150px;"><input id="model4" type="checkbox" name="<portlet:namespace/>model4" value="CNRM-CM5"/> CNRM-CM5</td>
-		                  </tr>
-		                  <tr>
-		                    <td style="width:150px;"><input id="model5" type="checkbox" name="<portlet:namespace/>model5" value="CanESM2"/> CanESM2</td>
-		                    <td style="width:150px;"><input id="model6" type="checkbox" name="<portlet:namespace/>model6" value="INM-CM4"/> INM-CM4</td>
-		                    <td style="width:150px;"><input id="model7" type="checkbox" name="<portlet:namespace/>model7" value="IPSL-CM5A-MR"/> IPSL-CM5A-MR</td>
-		                    <td style="width:150px;"><input id="model8" type="checkbox" name="<portlet:namespace/>model8" value="MIROC5"/> MIROC5</td>
-		                  </tr>
-		                  <tr>
-		                    <td style="width:150px;"><input id="model9" type="checkbox" name="<portlet:namespace/>model9" value="MPI-ESM-MR"/> MPI-ESM-MR</td>
-		                    <td style="width:150px;"><input id="model10" type="checkbox" name="<portlet:namespace/>model10" value="MRI-CGCM3"/> MRI-CGCM3</td>
-		                    <td style="width:150px;"><input id="model11" type="checkbox" name="<portlet:namespace/>model11" value="NorESM1-M"/> NorESM1-M</td>
-		                    <td style="width:150px;"></td>
-		                  </tr>	           
-		            </table>
-		            <br>
-		           
-		            Select a scenario
-		            <br>
-		            <select style="width:210px;" name="<portlet:namespace/>scenario" id="scenario" label="Select a scenario">
-		                <option value="rcp45">RCP 4.5</option>
-		                <option value="rcp85">RCP 8.5</option>
-		            </select>
-		            <br>
-		            <br>
-		               
-		            Select a time frequency
-		            <br>           
-		            <select style="width:210px;" name="<portlet:namespace/>time_frequency" id="time_frequency" label="Select a time frequency">time_frequency">
-		                <option value="day">day</option>
-		                <option value="mon">mon</option>
-		            <select>
-		            </td>
-	            </tr>
 	            <tr>
-                    <td></td>
-                    <td style="padding-left: 1cm;">
-	                    Select a percentile
+	            	<td style="padding-right: 0.3cm;">
+	            		<div id="mapDiv" style="width:600px;height:450px"></div>
+	            	</td>
+	                <td style="padding-left: 1cm;">
+	                	<br>
+	                	<table>
+	                		<tr>
+								<td>
+									Latitude interval
+						            <br>
+						            <input style="width:120px;" id="latmin" disabled="true" name="<portlet:namespace/>latmin" type="text" disabled="true" value="-90" id="latmin" label="Lat min" />
+						            <input style="width:120px;" id="latmax" disabled="true" name="<portlet:namespace/>latmax" type="text" disabled="true" value="90" id="latmax" label="Lat max" />
+						            <br>
+						            <br>
+						           
+						            Longitude interval
+						            <br>
+						            <input style="width:120px;" id="lonmin" disabled="true" name="<portlet:namespace/>lonmin" type="text" disabled="true" value="0" id="lonmin" label="Lon min" />
+						            <input style="width:120px;" id="lonmax" disabled="true" name="<portlet:namespace/>lonmax" type="text" disabled="true" value="360" id="lonmax" label="Lon max" />
+						            <br>
+						            <br>
+								</td>
+								<td style="padding-left: 1cm;"> 
+									Select a scenario
+									<br>
+						            <select style="width:200px;" name="<portlet:namespace/>scenario" id="scenario" label="Select a scenario">
+						                <option value="rcp45">RCP 4.5</option>
+						                <option value="rcp85">RCP 8.5</option>
+						            </select>
+						            <br>
+						            <br>
+						               
+						            Select a time frequency
+						            <br>           
+						            <select style="width:200px;" name="<portlet:namespace/>time_frequency" id="time_frequency" label="Select a time frequency">time_frequency">
+						                <option value="day">day</option>
+						                <option value="mon">mon</option>
+						            <select>
+						            <br>
+						            <br>
+								</td>	                		
+	                		</tr>
+	                	</table>
+	                	
+	                	<br>
+		                Select the models to compare
+			            <br>      
+			            <table>
+			                <tr>
+			                    <td style="width:150px;"><input id="model1" type="checkbox" name="<portlet:namespace/>model1" value="CCSM4"/> CCSM4</td>
+			                    <td style="width:150px;"><input id="model2" type="checkbox" name="<portlet:namespace/>model2" value="CMCC-CM"/> CMCC-CM</td>
+			                    <td style="width:150px;"><input id="model3" type="checkbox" name="<portlet:namespace/>model3" value="CMCC-CMS"/> CMCC-CMS</td>
+			                    <td style="width:150px;"><input id="model4" type="checkbox" name="<portlet:namespace/>model4" value="CNRM-CM5"/> CNRM-CM5</td>
+			                  </tr>
+			                  <tr>
+			                    <td style="width:150px;"><input id="model5" type="checkbox" name="<portlet:namespace/>model5" value="CanESM2"/> CanESM2</td>
+			                    <td style="width:150px;"><input id="model6" type="checkbox" name="<portlet:namespace/>model6" value="INM-CM4"/> INM-CM4</td>
+			                    <td style="width:150px;"><input id="model7" type="checkbox" name="<portlet:namespace/>model7" value="IPSL-CM5A-MR"/> IPSL-CM5A-MR</td>
+			                    <td style="width:150px;"><input id="model8" type="checkbox" name="<portlet:namespace/>model8" value="MIROC5"/> MIROC5</td>
+			                  </tr>
+			                  <tr>
+			                    <td style="width:150px;"><input id="model9" type="checkbox" name="<portlet:namespace/>model9" value="MPI-ESM-MR"/> MPI-ESM-MR</td>
+			                    <td style="width:150px;"><input id="model10" type="checkbox" name="<portlet:namespace/>model10" value="MRI-CGCM3"/> MRI-CGCM3</td>
+			                    <td style="width:150px;"><input id="model11" type="checkbox" name="<portlet:namespace/>model11" value="NorESM1-M"/> NorESM1-M</td>
+			                    <td style="width:150px;"><input id="select-all" type="checkbox" name="<portlet:namespace/>select-all" value="all" onclick="toggle(this);"/> Select all</td>
+			                  </tr>	           
+			            </table>
 			            <br>
-			            <input type="range" style="width:210px;" min="0" max="1" value="0.5" id="percentileValue" step="0.1" oninput="outputPercentile(value)">
-			            <output id="percentile" for="percentileValue">0.5</output>
-			            <br>
-			            <br>
-			                           
-			            Insert the historical time period
-			            <br>       
-			            <p><input style="width:210px;" name="<portlet:namespace/>historical_time_min" type="text" value="1976" id="historical_time_min" label="Historical time min" />
-			            <input style="width:210px;" name="<portlet:namespace/>historical_time_max" type="text" value="2006" id="historical_time_max" label="Historical time max" /></p>
-			            <br>
-			           
-			            Insert the scenario time period
-			            <br>
-			            <p><input style="width:210px;" name="<portlet:namespace/>scenario_time_min" type="text" value="2071" id="scenario_time_min" label="Scenario time min" />
-			            <input style="width:210px;" name="<portlet:namespace/>scenario_time_max" type="text" value="2101" id="scenario_time_max" label="Scenario time max" /></p>
-			            <br>
- 					</td>
- 				</tr>
-
+			            
+			            <table>
+	                		<tr>
+								<td>
+									Insert the historical time period
+						            <br>       
+						            <p><input style="width:120px;" name="<portlet:namespace/>historical_time_min" type="text" value="1976" id="historical_time_min" label="Historical time min" />
+						            <input style="width:120px;" name="<portlet:namespace/>historical_time_max" type="text" value="2006" id="historical_time_max" label="Historical time max" /></p>
+						            <br>
+						           
+								</td>
+								<td style="padding-left: 1cm;">
+									Select a percentile
+						            <br>
+						            <input type="range" style="width:250px;" min="0" max="1" value="0.50" id="percentileValue" step="0.01" oninput="outputPercentile(value)">
+						            <output id="percentile" for="percentileValue">0.5</output>
+						            <br>
+								</td>
+								<td>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Insert the scenario time period
+						            <br>
+						            <p><input style="width:120px;" name="<portlet:namespace/>scenario_time_min" type="text" value="2071" id="scenario_time_min" label="Scenario time min" />
+						            <input style="width:120px;" name="<portlet:namespace/>scenario_time_max" type="text" value="2101" id="scenario_time_max" label="Scenario time max" /></p>
+						            <br>
+								</td>
+								<td class="wrapper">
+									<input type="button" value="Submit" onclick="formSubmit()" name="<portlet:namespace/>submit"/>
+								</td>
+							</tr>
+						</table>
+	                </td>
+				</tr>
+<!-- 				<tr class="wrapper">
+					<td>
+					</td>
+					<td style="padding-right: 1cm;">
+						
+					</td>
+				</tr> -->
             </table>
-            <div class="wrapper">
-    			<input type="button" value="Submit" onclick="formSubmit()" name="<portlet:namespace/>submit"/>
-			</div>    
+            
+            <br>
+			<br>    
         <form>
     </div>      
 </div>
@@ -134,6 +163,14 @@
 var gMap = null;
 var drawingManager = null;
 var drawingrectangle = null;
+
+function toggle(source) {
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
 
 function outputPercentile(vol) {
 	document.querySelector('#percentile').value = vol;
