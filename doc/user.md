@@ -8,7 +8,7 @@ To correctly execute the workflow experiment, the user can select two or more mo
 
 On the submission, a new task is created on the Future Gateway API service which will be responsible to forward the request to the Kepler-batch application and execute the multi-model workflow.
 
-![Multi-model analysis submission](img/5.png)
+![Multi-model analysis submission](img/6.png)
 
 ## data-analytics-monitoring-portlet
 
