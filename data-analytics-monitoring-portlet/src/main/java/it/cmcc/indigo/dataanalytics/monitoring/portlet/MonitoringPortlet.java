@@ -88,7 +88,9 @@ public class MonitoringPortlet extends MVCPortlet {
         String jsonResponse = response.toString();
         int index = jsonResponse.indexOf("[");
         jsonResponse = jsonResponse.substring(index);
-        jsonResponse = jsonResponse.substring(0, jsonResponse.length() - 1);
+
+        int index2 = jsonResponse.lastIndexOf(",     \"_links\":");
+        jsonResponse = jsonResponse.substring(0, index2);
         resourceResponse.getWriter().write(jsonResponse);
     }
 }

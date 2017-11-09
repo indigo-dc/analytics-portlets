@@ -99,7 +99,8 @@ public class MonitoringPortletTest {
         String href = "https://fgw01.ncg.ingrid.pt/apis/v1.0/tasks";
         HttpURLConnection con = Mockito.mock(HttpURLConnection.class);
         httpUrlStreamHandler.addConnection(new URL(href), con);
-        InputStream is = new ByteArrayInputStream("tasks: [test data]"
+        InputStream is =
+            new ByteArrayInputStream("tasks: [test data],     \"_links\":"
                 .getBytes());
         Mockito.when(con.getInputStream()).thenReturn(is);
 
