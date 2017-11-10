@@ -26,3 +26,7 @@ The administrator can select the file to upload from the local file system and c
 To include the modules, the administrator has to go to the ENES page and open the `Add` section (marked as a plus symbol on the top right side of the portal), open the `Application` menu, select the `Data Analytics` category and add the portlets to the page.
 
 ![Inclusion of the portlet into the ENES page](img/deployment4.png)
+
+# Upgrade
+
+To upgrade the portlets to a newer version, the system administrator has to replace the old jar files with the new ones into the `<liferay-installation-dir>/osgi/modules` folder and refresh the web portal.
